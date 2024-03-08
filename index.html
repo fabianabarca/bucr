@@ -30,8 +30,14 @@
         th {
             position: sticky;
             top: 0;
-            background: white; /* Add a background color to the header */
-            z-index: 10; /* Ensure the header is above the other table rows */
+            background: white;
+            /* Add a background color to the header */
+            z-index: 10;
+            /* Ensure the header is above the other table rows */
+        }
+
+        .smaller {
+            font-size: 0.7rem;
         }
     </style>
 </head>
@@ -42,19 +48,20 @@
         <div class="card col-lg-8 mx-auto bg-transparent border-0 text-white">
             <img src="img/b_blanco.png" alt="Logo bUCR" width="200px" class="mx-auto d-block mt-5">
             <h1 class="display-3 my-5 fw-bold">Bus interno de la <br> Universidad de Costa Rica</h1>
-            <h2><i class="bi bi-bus-front-fill"></i></h2>
-            <h3><span class="text-uppercase">Campus Universitario Rodrigo&nbsp;Facio</span> <br> <span class="small">San Pedro de Montes de Oca, San&nbsp;José, Costa Rica</span>
-            </h3>
         </div>
     </div>
 
     <!-- Contenido -->
     <div class="container-md" style="max-width: 960px;">
-
+        <div class="text-center my-5">
+            <h2><i class="bi bi-bus-front-fill"></i></h2>
+            <h3><span class="text-uppercase">Campus Universitario Rodrigo&nbsp;Facio</span> <br> <span class="small">San Pedro de Montes de Oca, San&nbsp;José,&nbsp;Costa&nbsp;Rica</span>
+            </h3>
+        </div>
         <!-- Rutas -->
         <h1><i class="bi bi-bus-front-fill" id="rutas"></i> Rutas</h1>
 
-        <p class="lead">El bus interno de la Universidad de Costa Rica recorre las tres fincas del Campus Universitario Rodrigo Facio, en dos rutas distintas:</p>
+        <p class="lead">El bus interno de la UCR recorre las tres fincas del Campus Universitario, en dos rutas distintas (ver <a href="#mapas">mapas</a>):</p>
 
         <div class="row row-cols-1 row-cols-md-2 g-4">
             <div class="col">
@@ -103,11 +110,11 @@
         <div class="row row-cols-1 row-cols-md-2 g-5">
             <div class="col">
                 <h4>
-                    Sentido Finca 1 <i class="bi bi-arrow-right-circle-fill"></i> Finca 3
+                    Sentido Finca 1 <i class="bi bi-caret-right-fill"></i> Finca 3
                 </h4>
                 <p>
-                    <span class="small text-muted">DESDE</span> Educación | Artes Plásticas
-                    <br> <span class="small text-muted">HACIA</span> Instalaciones Deportivas
+                    <span class="smaller text-muted text-uppercase">Desde</span> Educación | Artes Plásticas
+                    <br> <span class="smaller text-muted text-uppercase">Hacia</span> Instalaciones Deportivas
                 </p>
                 <div class="overflow-y-auto" style="max-height: 600px;">
                     <table class="table">
@@ -466,12 +473,12 @@
             </div>
             <div class="col">
                 <h4>
-                    Sentido Finca 3 <i class="bi bi-arrow-right-circle-fill"></i> Finca 1
-                    
+                    Sentido Finca 3 <i class="bi bi-caret-right-fill"></i> Finca 1
+
                 </h4>
                 <p>
-                    <span class="small text-muted">DESDE</span> Instalaciones Deportivas
-                    <br> <span class="small text-muted">HACIA</span> Educación | Artes Plásticas
+                    <span class="smaller text-muted text-uppercase">Desde</span> Instalaciones Deportivas
+                    <br> <span class="smaller text-muted text-uppercase">Hacia</span> Educación | Artes Plásticas
                 </p>
                 <div class="overflow-y-auto" style="max-height: 600px;">
                     <table class="table">
@@ -814,7 +821,7 @@
         <h1 class="mt-5" id="tarifas"><i class="bi bi-ticket-detailed-fill"></i> Tarifas</h1>
 
         <p class="lead">El bus interno de la Universidad de Costa Rica no tiene tarifa de uso.</p>
-        
+
         <!-- Mapas -->
         <h1 class="mt-5" id="mapas"><i class="bi bi-map-fill"></i> Mapas</h1>
 
@@ -824,7 +831,11 @@
                 <div class="card h-100">
                     <div class="card-img-top" id="L1-educacion" style="max-width: 800px; height: 325px;"></div>
                     <div class="card-body">
-                        <h5 class="card-title"><span class="badge rounded-pill badge-l1">L1</span> Deportivas</h5>
+                        <h5 class="card-title">
+                            <span class="badge rounded-pill badge-l1">L1</span>
+                            <span class="smaller text-muted text-uppercase">Hacia</span>
+                            Deportivas
+                        </h5>
                         <p class="card-text">Desde Educación o Artes Plásticas hacia las Deportivas <strong>con</strong> vuelta a la milla universitaria</p>
                     </div>
                 </div>
@@ -833,7 +844,11 @@
                 <div class="card h-100">
                     <div class="card-img-top" id="L2-educacion" style="max-width: 800px; height: 325px;"></div>
                     <div class="card-body">
-                        <h5 class="card-title"><span class="badge rounded-pill badge-l2">L2</span> Deportivas</h5>
+                        <h5 class="card-title">
+                            <span class="badge rounded-pill badge-l2">L2</span>
+                            <span class="smaller text-muted text-uppercase">Hacia</span>
+                            Deportivas
+                        </h5>
                         <p class="card-text">Desde Educación o Artes Plásticas hacia las Deportivas <strong>sin</strong> vuelta a la milla universitaria</p>
                     </div>
                 </div>
@@ -842,7 +857,11 @@
                 <div class="card h-100">
                     <div class="card-img-top" id="L1-deportivas" style="max-width: 800px; height: 325px;"></div>
                     <div class="card-body">
-                        <h5 class="card-title"><span class="badge rounded-pill badge-l1">L1</span> Educación | Artes Plásticas</h5>
+                        <h5 class="card-title">
+                            <span class="badge rounded-pill badge-l1">L1</span>
+                            <span class="smaller text-muted text-uppercase">Hacia</span>
+                            Educación | Artes Plásticas
+                        </h5>
                         <p class="card-text">Desde las Deportivas hacia Educación o Artes Plásticas <strong>sin</strong> vuelta a la milla universitaria</p>
                     </div>
                 </div>
@@ -852,7 +871,7 @@
         <!-- Paradas -->
         <h1 class="mt-5" id="paradas"><i class="bi bi-geo-alt-fill"></i> Paradas</h1>
 
-        <h4 class="mt-4">Sentido Finca 1 <i class="bi bi-arrow-right-circle-fill"></i> Finca 3</h4>
+        <h4 class="mt-4">Sentido Finca 1 <i class="bi bi-caret-right-fill"></i> Finca 3</h4>
 
         <table class="table">
             <thead>
@@ -960,7 +979,7 @@
             </tbody>
         </table>
 
-        <h4 class="mt-4">Sentido Finca 3 <i class="bi bi-arrow-right-circle-fill"></i> Finca 1</h4>
+        <h4 class="mt-4">Sentido Finca 3 <i class="bi bi-caret-right-fill"></i> Finca 1</h4>
 
         <table class="table">
             <thead>
@@ -1030,8 +1049,11 @@
             </tbody>
         </table>
 
+        <div class="text-center my-5">
+            <img src="img/el_b_es_el_bus.png" alt="el b es el bus de la U" width="300px">
+        </div>
 
-    
+
     </div>
 
     <!-- Footer -->
