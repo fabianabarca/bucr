@@ -1,0 +1,2987 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bus de la UCR</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/b_azul_fondo_blanco.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- bUCR CSS -->
+    <link rel="stylesheet" href="css/bucr.css">
+    <!-- Leaflet CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <!-- Google Analytics tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2T1E5GRBJB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2T1E5GRBJB');
+    </script>
+    <style>
+        th {
+            position: sticky;
+            top: 0;
+            background: white; /* Add a background color to the header */
+            z-index: 10; /* Ensure the header is above the other table rows */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Portada -->
+    <div class="px-4 pt-3 pb-5 mb-5 text-center bg-azul-ucr">
+        <div class="card col-lg-8 mx-auto bg-transparent border-0 text-white">
+            <img src="img/b_blanco.png" alt="Logo bUCR" width="200px" class="mx-auto d-block mt-5">
+            <h1 class="display-3 my-5 fw-bold">Bus interno de la <br> Universidad de Costa Rica</h1>
+            <h2><i class="bi bi-bus-front-fill"></i></h2>
+            <h3><span class="text-uppercase">Campus Universitario Rodrigo&nbsp;Facio</span> <br> <span class="small">San Pedro de Montes de Oca, San&nbsp;José, Costa Rica</span>
+            </h3>
+        </div>
+    </div>
+
+    <!-- Contenido -->
+    <div class="container-md" style="max-width: 960px;">
+
+        <!-- Rutas -->
+        <h1><i class="bi bi-bus-front-fill" id="rutas"></i> Rutas</h1>
+
+        <p class="lead">El bus interno de la Universidad de Costa Rica recorre las tres fincas del Campus Universitario Rodrigo Facio, en dos rutas distintas:</p>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <div class="card mb-3 border-0" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex justify-content-center align-items-center">
+                            <h1 class="display-3" id="L1">
+                                <span class="badge rounded-pill badge-l1">L1</span>
+                            </h1>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Con vuelta a la milla universitaria</h5>
+                                <p class="card-text">Sale desde la Facultad de Educación o desde la Escuela de Artes Plásticas, recorre la milla universitaria y sale de finca 1.</p>
+                                <p class="card-text"><small class="text-body-secondary">Solamente después de las 7:00 pm</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-3 border-0" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex justify-content-center align-items-center">
+                            <h1 class="display-3" id="L2">
+                                <span class="badge rounded-pill badge-l2">L2</span>
+                            </h1>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Sin vuelta a la milla universitaria</h5>
+                                <p class="card-text">Sale desde la Facultad de Educación o desde la Escuela de Artes Plásticas y va directo a la Ciudad de la Investigación y las Deportivas.</p>
+                                <p class="card-text"><small class="text-body-secondary">Esta ruta no tiene regreso</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Horario -->
+        <h1 class="mt-5" id="horarios"><i class="bi bi-clock-fill"></i> Horario</h1>
+
+        <p class="lead">El bus interno funciona de lunes a viernes.</p>
+
+        <div class="row row-cols-1 row-cols-md-2 g-5">
+            <div class="col">
+                <h4>
+                    Sentido Finca 1 <i class="bi bi-arrow-right-circle-fill"></i> Finca 3
+                </h4>
+                <p>
+                    <span class="small text-muted">DESDE</span> Educación | Artes Plásticas
+                    <br> <span class="small text-muted">HACIA</span> Instalaciones Deportivas
+                </p>
+                <div class="overflow-y-auto" style="max-height: 600px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ruta</th>
+                                <th>Desde</th>
+                                <th>Hacia Deportivas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>6:10</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>6:20</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>6:30</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>6:40</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>7:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>7:10</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>7:20</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>7:30</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>7:50</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>8:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>8:10</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>8:35</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>8:55</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>9:05</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>9:15</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>9:25</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>9:45</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>9:55</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>10:05</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>10:15</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>10:35</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>10:45</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>10:55</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>11:05</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>11:15</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>11:25</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>11:35</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>11:40</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>11:50</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>12:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>12:10</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>12:25</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>12:30</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>12:35</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>12:45</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>13:10</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>13:20</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>13:45</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>14:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>14:10</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>14:20</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>14:30</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>14:45</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>14:55</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>15:05</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>15:15</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>15:30</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>15:40</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>15:50</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>16:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>16:15</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>16:40</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>17:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>17:10</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>17:25</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>17:35</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>17:55</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>18:05</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>18:20</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Educación</td>
+                                <td>18:30</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l2">L2</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>18:50</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                                <td>Educación</td>
+                                <td>19:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>19:15</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                                <td>Educación</td>
+                                <td>19:25</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                                <td>Artes Plásticas</td>
+                                <td>19:35</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                                <td>Educación</td>
+                                <td>20:00</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                                <td>Educación</td>
+                                <td>20:45</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                                <td>Educación</td>
+                                <td>21:30</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col">
+                <h4>
+                    Sentido Finca 3 <i class="bi bi-arrow-right-circle-fill"></i> Finca 1
+                    
+                </h4>
+                <p>
+                    <span class="small text-muted">DESDE</span> Instalaciones Deportivas
+                    <br> <span class="small text-muted">HACIA</span> Educación | Artes Plásticas
+                </p>
+                <div class="overflow-y-auto" style="max-height: 600px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Desde Deportivas</th>
+                                <th>Hacia</th>
+                                <th>Ruta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>6:20</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>6:40</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>6:50</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>7:00</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>7:10</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>7:30</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>7:40</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>7:50</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>8:00</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>8:35</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>8:45</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>8:55</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>9:05</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>9:25</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>9:35</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>9:45</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>9:55</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:15</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:25</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:35</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:45</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:05</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:15</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:20</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:30</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:40</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>11:50</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>12:05</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>12:10</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>12:15</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>12:25</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>12:50</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:00</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:25</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:40</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>13:50</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:00</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:10</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:25</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:35</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:45</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>14:55</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>15:10</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>15:20</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>15:30</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>15:40</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>15:55</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>16:05</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>16:35</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>16:45</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:00</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:10</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:30</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:40</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>17:55</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:05</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:25</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:35</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>18:50</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:00</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:15</td>
+                                <td>Artes Plásticas</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>19:40</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>20:15</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                            <tr>
+                                <td>21:05</td>
+                                <td>Educación</td>
+                                <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Tarifas -->
+        <h1 class="mt-5" id="tarifas"><i class="bi bi-ticket-detailed-fill"></i> Tarifas</h1>
+
+        <p class="lead">El bus interno de la Universidad de Costa Rica no tiene tarifa de uso.</p>
+        
+        <!-- Mapas -->
+        <h1 class="mt-5" id="mapas"><i class="bi bi-map-fill"></i> Mapas</h1>
+
+        <p class="lead">Estas son las trayectorias recorridas por las rutas, en ida y retorno (cuando aplica).</p>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-img-top" id="L1-educacion" style="max-width: 800px; height: 325px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title"><span class="badge rounded-pill badge-l1">L1</span> Deportivas</h5>
+                        <p class="card-text">Desde Educación o Artes Plásticas hacia las Deportivas <strong>con</strong> vuelta a la milla universitaria</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-img-top" id="L2-educacion" style="max-width: 800px; height: 325px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title"><span class="badge rounded-pill badge-l2">L2</span> Deportivas</h5>
+                        <p class="card-text">Desde Educación o Artes Plásticas hacia las Deportivas <strong>sin</strong> vuelta a la milla universitaria</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-img-top" id="L1-deportivas" style="max-width: 800px; height: 325px;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title"><span class="badge rounded-pill badge-l1">L1</span> Educación | Artes Plásticas</h5>
+                        <p class="card-text">Desde las Deportivas hacia Educación o Artes Plásticas <strong>sin</strong> vuelta a la milla universitaria</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paradas -->
+        <h1 class="mt-5" id="paradas"><i class="bi bi-geo-alt-fill"></i> Paradas</h1>
+
+        <h4 class="mt-4">Sentido Finca 1 <i class="bi bi-arrow-right-circle-fill"></i> Finca 3</h4>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ruta(s)</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Facultad de Educación <br> <span class="small text-muted">Opción 1</span></td>
+                    <td>Frente al jardín de la Facultad de Educación (FE)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Escuela de Artes Plásticas <br> <span class="small text-muted">Opción 2</span></td>
+                    <td>Nuevo edificio de la Escuela de Artes Plásticas (EAP)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                    </td>
+                    <td>Biblioteca de Ciencias de la Salud</td>
+                    <td>Frente al antiguo edificio de la Facultad de Odontología (FOd), diagonal al parqueo de la Biblioteca de Ciencias de la Salud</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                    </td>
+                    <td>Facultad de Microbiología</td>
+                    <td>Esquina noreste del parqueo de las Escuelas de Artes Musicales (EAM), Química (EQ) y Biología (EB) y la Facultad de Microbiología (FMic)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Centro de Transferencia Tecnológica (CTT)</td>
+                    <td>Junto al parqueo del Centro de Transferencia Tecnológica (CTT), diagonal al Laboratorio Nacional de Materiales y Modelos Estructurales (LANAMME)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Facultad de Ingeniería</td>
+                    <td>Costado norte del nuevo edificio de la Facultad de Ingeniería (FI)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Facultad de Ciencias Sociales</td>
+                    <td>Entre la Facultad de Ciencias Sociales (FCS) y el edificio de parqueos</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Instituto de Investigación en Educación (INIE)</td>
+                    <td>Costado sur del edificio del Instituto de Investigación en Educación (INIE)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Centro de Investigación en Cirugía y Cáncer (CICICA)</td>
+                    <td>Costado sur del edificio del Centro de Investigación en Cirugía y Cáncer (CICICA)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Entrada de las Instalaciones Deportivas (Finca 3)</td>
+                    <td>En la entrada principal al sur de las instalaciones deportivas de la Finca 3</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Escuela de Educación Física y Deportes (EDUFI)</td>
+                    <td>Costado este de las canchas multiuso y de la Escuela de Educación Física y Deportes (EDUFI)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="badge rounded-pill badge-l1">L1</span>
+                        <span class="badge rounded-pill badge-l2">L2</span>
+                    </td>
+                    <td>Facultad de Odontología</td>
+                    <td>En el nuevo edificio de la Facultad de Odontología (FOd) en la Finca 3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="mt-4">Sentido Finca 3 <i class="bi bi-arrow-right-circle-fill"></i> Finca 1</h4>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ruta</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Facultad de Odontología</td>
+                    <td>En el nuevo edificio de la Facultad de Odontología (FOd) en la Finca 3</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Escuela de Educación Física y Deportes (EDUFI)</td>
+                    <td>Costado este de las canchas multiuso y de la Escuela de Educación Física y Deportes (EDUFI)</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Entrada de las Instalaciones Deportivas (Finca 3)</td>
+                    <td>En la entrada principal al sur de las instalaciones deportivas de la Finca 3</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Escuela de Nutrición</td>
+                    <td>Esquina noreste del edificio de la Escuela de Nutrición (ENu)</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Parqueo Integral Universitario</td>
+                    <td>Entre el edificio de parqueos y el Centro de Investigación en Ciencias del Mar y Limnología (CIMAR)</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Centro de Investigación en Matemática Pura y Aplicada (CIMPA)</td>
+                    <td>Frente al edificio del Centro de Investigación en Matemática Pura y Aplicada (CIMPA)</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Facultad de Ciencias Sociales</td>
+                    <td>Entre la Facultad de Ciencias Sociales (FCS) y el edificio de parqueos</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Facultad de Ingeniería (externa)</td>
+                    <td>Costado norte del nuevo edificio de la Facultad de Ingeniería (FI), al otro lado de la calle</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Centro de Transferencia Tecnológica (CTT)</td>
+                    <td>Junto al parqueo del Centro de Transferencia Tecnológica (CTT), diagonal al Laboratorio Nacional de Materiales y Modelos Estructurales (LANAMME), al otro lado de la calle</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Facultad de Educación <br> <span class="small text-muted">Opción 1</span></td>
+                    <td>Frente al jardín de la Facultad de Educación (FE)</td>
+                </tr>
+                <tr>
+                    <td><span class="badge rounded-pill badge-l1">L1</span></td>
+                    <td>Escuela de Artes Plásticas <br> <span class="small text-muted">Opción 2</span></td>
+                    <td>Nuevo edificio de la Escuela de Artes Plásticas (EAP)</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    
+    </div>
+
+    <!-- Footer -->
+    <div class="container-lg">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <a href="https://www.ucr.ac.cr/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                    <img src="img/ucr_firma.png" alt="Logo de la Universidad de Costa Rica" height="80px">
+                </a>
+            </div>
+            <div class="col-md-4 d-flex align-items-center justify-content-end">
+                <a href="https://www.ucr.ac.cr/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                    <img src="img/bucr_azul_celeste.png" alt="Logo de bUCR" height="80px">
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Leaflet Map JS -->
+    <script>
+
+        const mapL1 = L.map('L1-educacion').setView([9.94106128502, -84.0468330945], 15);
+
+        const tilesL1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(mapL1);
+
+        var geojsonL1 = {
+            "type": "Feature",
+            "properties": {
+                "name": "desde_educacion_con_milla",
+                "route": "L1",
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -84.04911149622446,
+                        9.93554615993122
+                    ],
+                    [
+                        -84.04923244083821,
+                        9.935572538604163
+                    ],
+                    [
+                        -84.04932439022029,
+                        9.935597196502954
+                    ],
+                    [
+                        -84.04950395654726,
+                        9.935668325037128
+                    ],
+                    [
+                        -84.04959831304419,
+                        9.935702466731556
+                    ],
+                    [
+                        -84.0496907438365,
+                        9.935709579584739
+                    ],
+                    [
+                        -84.04984912813461,
+                        9.935711476240343
+                    ],
+                    [
+                        -84.05008935181247,
+                        9.935702466637224
+                    ],
+                    [
+                        -84.0503237982121,
+                        9.935667850893552
+                    ],
+                    [
+                        -84.05053623272339,
+                        9.935628018710545
+                    ],
+                    [
+                        -84.05075912586264,
+                        9.935585815681094
+                    ],
+                    [
+                        -84.05103545538962,
+                        9.935539345025774
+                    ],
+                    [
+                        -84.05135350742064,
+                        9.935487183919719
+                    ],
+                    [
+                        -84.0516944413929,
+                        9.935445907780021
+                    ],
+                    [
+                        -84.05176836916019,
+                        9.93544406437546
+                    ],
+                    [
+                        -84.05219134603085,
+                        9.935497526177869
+                    ],
+                    [
+                        -84.05227463141522,
+                        9.935521491977397
+                    ],
+                    [
+                        -84.05234200826192,
+                        9.935545457608143
+                    ],
+                    [
+                        -84.05239815563411,
+                        9.935601684658735
+                    ],
+                    [
+                        -84.05243184405765,
+                        9.935657911699664
+                    ],
+                    [
+                        -84.05244307353176,
+                        9.935720591012
+                    ],
+                    [
+                        -84.05241874275156,
+                        9.935838575299755
+                    ],
+                    [
+                        -84.0523466867771,
+                        9.936055058856525
+                    ],
+                    [
+                        -84.0522802455722,
+                        9.936274436203448
+                    ],
+                    [
+                        -84.052243749702,
+                        9.936394368941436
+                    ],
+                    [
+                        -84.05223907075447,
+                        9.936532631803672
+                    ],
+                    [
+                        -84.05233495067563,
+                        9.936798020544174
+                    ],
+                    [
+                        -84.05243133697783,
+                        9.937069102086298
+                    ],
+                    [
+                        -84.05253801694411,
+                        9.93735023603007
+                    ],
+                    [
+                        -84.05264376128618,
+                        9.937571456337508
+                    ],
+                    [
+                        -84.05270271602718,
+                        9.937741058163226
+                    ],
+                    [
+                        -84.05271514884618,
+                        9.937789780419294
+                    ],
+                    [
+                        -84.05272731411046,
+                        9.937946477657022
+                    ],
+                    [
+                        -84.05270766229964,
+                        9.93809150988507
+                    ],
+                    [
+                        -84.052635606505,
+                        9.938155110479258
+                    ],
+                    [
+                        -84.0521246655647,
+                        9.93840121696546
+                    ],
+                    [
+                        -84.05189447964904,
+                        9.93857142751338
+                    ],
+                    [
+                        -84.05161560364972,
+                        9.938791767656127
+                    ],
+                    [
+                        -84.05145552849085,
+                        9.938901063454367
+                    ],
+                    [
+                        -84.05130202948918,
+                        9.938975075153024
+                    ],
+                    [
+                        -84.05113457603245,
+                        9.939014195614703
+                    ],
+                    [
+                        -84.0509224405605,
+                        9.93905117558812
+                    ],
+                    [
+                        -84.05060148810212,
+                        9.939065977922922
+                    ],
+                    [
+                        -84.0501243834524,
+                        9.939098565374081
+                    ],
+                    [
+                        -84.04976563907333,
+                        9.939103185600558
+                    ],
+                    [
+                        -84.049652930016,
+                        9.939065122458885
+                    ],
+                    [
+                        -84.04951338546887,
+                        9.938977365752905
+                    ],
+                    [
+                        -84.04931158163039,
+                        9.93881453893313
+                    ],
+                    [
+                        -84.04902819885777,
+                        9.938604134099094
+                    ],
+                    [
+                        -84.04886478348855,
+                        9.938476073580958
+                    ],
+                    [
+                        -84.04864258563248,
+                        9.938307961012825
+                    ],
+                    [
+                        -84.04843689954927,
+                        9.938127751112035
+                    ],
+                    [
+                        -84.04827683353695,
+                        9.937981001249383
+                    ],
+                    [
+                        -84.04795669829143,
+                        9.937680223193652
+                    ],
+                    [
+                        -84.04791112523144,
+                        9.937632866359984
+                    ],
+                    [
+                        -84.04787225769378,
+                        9.937583197807214
+                    ],
+                    [
+                        -84.04784041359353,
+                        9.937538702162811
+                    ],
+                    [
+                        -84.04781393391136,
+                        9.937494206518409
+                    ],
+                    [
+                        -84.04779234206994,
+                        9.937450241802061
+                    ],
+                    [
+                        -84.0477606919451,
+                        9.937359382169362
+                    ],
+                    [
+                        -84.0477606931305,
+                        9.937249166933896
+                    ],
+                    [
+                        -84.04777843418653,
+                        9.937151777608065
+                    ],
+                    [
+                        -84.04779875819365,
+                        9.937057101586461
+                    ],
+                    [
+                        -84.04790016026993,
+                        9.93672866697375
+                    ],
+                    [
+                        -84.0479940310818,
+                        9.93643873625598
+                    ],
+                    [
+                        -84.04812091062095,
+                        9.936054593713578
+                    ],
+                    [
+                        -84.04814975770597,
+                        9.93594785009141
+                    ],
+                    [
+                        -84.04819268638822,
+                        9.935846720676466
+                    ],
+                    [
+                        -84.04829029775891,
+                        9.935624149685253
+                    ],
+                    [
+                        -84.04835414026886,
+                        9.935555633021494
+                    ],
+                    [
+                        -84.04839553630201,
+                        9.935523772937636
+                    ],
+                    [
+                        -84.04843592650725,
+                        9.935493233843289
+                    ],
+                    [
+                        -84.04855626308989,
+                        9.935459241010292
+                    ],
+                    [
+                        -84.04860845740919,
+                        9.93545410965148
+                    ],
+                    [
+                        -84.04865830479527,
+                        9.935452611019628
+                    ],
+                    [
+                        -84.04863813832547,
+                        9.93527714539185
+                    ],
+                    [
+                        -84.04838493709534,
+                        9.935293698756468
+                    ],
+                    [
+                        -84.04812501387299,
+                        9.935248452872486
+                    ],
+                    [
+                        -84.0476876510322,
+                        9.935104906958216
+                    ],
+                    [
+                        -84.04710496762254,
+                        9.934923096229525
+                    ],
+                    [
+                        -84.0463710454434,
+                        9.934787951568211
+                    ],
+                    [
+                        -84.04588103626877,
+                        9.93468712924438
+                    ],
+                    [
+                        -84.04561501106521,
+                        9.934617164761747
+                    ],
+                    [
+                        -84.04561572607307,
+                        9.934664534605687
+                    ],
+                    [
+                        -84.04560986580755,
+                        9.934954116117723
+                    ],
+                    [
+                        -84.04558932870319,
+                        9.935018672395074
+                    ],
+                    [
+                        -84.04558284913217,
+                        9.935332556567772
+                    ],
+                    [
+                        -84.04553108952449,
+                        9.935581742150774
+                    ],
+                    [
+                        -84.04545871913068,
+                        9.93565354440517
+                    ],
+                    [
+                        -84.04539355655562,
+                        9.936014277755092
+                    ],
+                    [
+                        -84.04535741834725,
+                        9.93618250695711
+                    ],
+                    [
+                        -84.04535681352172,
+                        9.93624056084127
+                    ],
+                    [
+                        -84.04536425532388,
+                        9.936297954230824
+                    ],
+                    [
+                        -84.04552150594562,
+                        9.936593182514017
+                    ],
+                    [
+                        -84.04557034143966,
+                        9.93667976807258
+                    ],
+                    [
+                        -84.04559573592353,
+                        9.9367692395777
+                    ],
+                    [
+                        -84.04558792223617,
+                        9.93685293870503
+                    ],
+                    [
+                        -84.04554912952311,
+                        9.936941736247277
+                    ],
+                    [
+                        -84.04544462145554,
+                        9.937081234707392
+                    ],
+                    [
+                        -84.04528171594454,
+                        9.937243131317118
+                    ],
+                    [
+                        -84.04512544220965,
+                        9.937346071249237
+                    ],
+                    [
+                        -84.04487247406125,
+                        9.93748749351063
+                    ],
+                    [
+                        -84.04464840932395,
+                        9.93761860756564
+                    ],
+                    [
+                        -84.04430023027287,
+                        9.937810982432424
+                    ],
+                    [
+                        -84.04399346033256,
+                        9.937991463156848
+                    ],
+                    [
+                        -84.04380345802657,
+                        9.93810165004318
+                    ],
+                    [
+                        -84.04361690624278,
+                        9.937964076129035
+                    ],
+                    [
+                        -84.04344402774204,
+                        9.937911163397857
+                    ],
+                    [
+                        -84.04321938423266,
+                        9.937886149948966
+                    ],
+                    [
+                        -84.04293613760453,
+                        9.937926556339022
+                    ],
+                    [
+                        -84.04248125053016,
+                        9.938000991967385
+                    ],
+                    [
+                        -84.04217725650513,
+                        9.93813818359375
+                    ],
+                    [
+                        -84.04199851840826,
+                        9.938164159078156
+                    ],
+                    [
+                        -84.04185103506074,
+                        9.938154538528806
+                    ],
+                    [
+                        -84.04172601606416,
+                        9.938125676878187
+                    ],
+                    [
+                        -84.04165276226325,
+                        9.93807564954973
+                    ],
+                    [
+                        -84.04163842525017,
+                        9.938042896648454
+                    ],
+                    [
+                        -84.04163615817744,
+                        9.938013115954519
+                    ],
+                    [
+                        -84.04163811159928,
+                        9.937921720678787
+                    ],
+                    [
+                        -84.04121226585352,
+                        9.937902479564997
+                    ],
+                    [
+                        -84.04106868934967,
+                        9.937894783119049
+                    ],
+                    [
+                        -84.04096909554603,
+                        9.938300468969544
+                    ],
+                    [
+                        -84.0409298363785,
+                        9.938461685647752
+                    ],
+                    [
+                        -84.04096792810407,
+                        9.938688730331663
+                    ],
+                    [
+                        -84.04113701730712,
+                        9.938848153989056
+                    ],
+                    [
+                        -84.04165686442676,
+                        9.939153835993366
+                    ],
+                    [
+                        -84.04179357551051,
+                        9.939285212033198
+                    ],
+                    [
+                        -84.04188768570249,
+                        9.939429776289245
+                    ],
+                    [
+                        -84.04190897253147,
+                        9.93950150662073
+                    ],
+                    [
+                        -84.04224283964083,
+                        9.939503713708149
+                    ],
+                    [
+                        -84.04252046841914,
+                        9.939486133333133
+                    ],
+                    [
+                        -84.04302463064616,
+                        9.939445293380174
+                    ],
+                    [
+                        -84.04333563244236,
+                        9.939423274816193
+                    ],
+                    [
+                        -84.04326556073246,
+                        9.939724422005256
+                    ],
+                    [
+                        -84.04329917151502,
+                        9.939787323932336
+                    ],
+                    [
+                        -84.04338095797476,
+                        9.939817119025946
+                    ],
+                    [
+                        -84.04375963946052,
+                        9.93991974845217
+                    ],
+                    [
+                        -84.04431706981217,
+                        9.940070432058391
+                    ],
+                    [
+                        -84.04467446548158,
+                        9.940165336582922
+                    ],
+                    [
+                        -84.04482683436362,
+                        9.940270172981116
+                    ],
+                    [
+                        -84.04524408975702,
+                        9.940381695997587
+                    ],
+                    [
+                        -84.04563285551102,
+                        9.940488739147924
+                    ],
+                    [
+                        -84.045599244728,
+                        9.94063882056966
+                    ],
+                    [
+                        -84.04506819420052,
+                        9.940796626668217
+                    ],
+                    [
+                        -84.04475032805409,
+                        9.940950711853475
+                    ],
+                    [
+                        -84.04465543410727,
+                        9.941052860539102
+                    ],
+                    [
+                        -84.04469185811008,
+                        9.941574112864515
+                    ],
+                    [
+                        -84.04474747269872,
+                        9.942422272552989
+                    ],
+                    [
+                        -84.04476990146392,
+                        9.942831072417874
+                    ],
+                    [
+                        -84.0447350564938,
+                        9.943006970655986
+                    ],
+                    [
+                        -84.04465447750124,
+                        9.943260092344218
+                    ],
+                    [
+                        -84.04454073207272,
+                        9.943514687771057
+                    ],
+                    [
+                        -84.04447104213288,
+                        9.94366913468646
+                    ],
+                    [
+                        -84.04475415751348,
+                        9.943799985487601
+                    ],
+                    [
+                        -84.04488482615062,
+                        9.943881499075786
+                    ],
+                    [
+                        -84.04495520376058,
+                        9.943966007434526
+                    ],
+                    [
+                        -84.04499327172927,
+                        9.944334191501554
+                    ],
+                    [
+                        -84.04501381493675,
+                        9.944573988136426
+                    ],
+                    [
+                        -84.04501050463605,
+                        9.944952213373725
+                    ],
+                    [
+                        -84.04508333119978,
+                        9.945036987795987
+                    ],
+                    [
+                        -84.04538953401106,
+                        9.945067963111853
+                    ],
+                    [
+                        -84.04550208423352,
+                        9.945094047585073
+                    ],
+                    [
+                        -84.04554180784173,
+                        9.945167410156529
+                    ],
+                    [
+                        -84.04550366312517,
+                        9.945694114377488
+                    ],
+                    [
+                        -84.04546455497263,
+                        9.945762356863582
+                    ],
+                    [
+                        -84.04525504775972,
+                        9.945869398510894
+                    ],
+                    [
+                        -84.04517774295951,
+                        9.94594554151604
+                    ],
+                    [
+                        -84.04515309498566,
+                        9.946290850589278
+                    ],
+                    [
+                        -84.04516366560397,
+                        9.94638848955421
+                    ],
+                    [
+                        -84.04520287818389,
+                        9.946449183159174
+                    ],
+                    [
+                        -84.04524629138449,
+                        9.94648865740507
+                    ]
+                ]
+            }
+        };
+
+        L.geoJSON(geojsonL1, {
+            style: function (feature) {
+                switch (feature.properties.route) {
+                    case 'L1': return { color: "#008641" };
+                    case 'L2': return { color: "#F37021" };
+                }
+            }
+        }).addTo(mapL1);
+    </script>
+    <script>
+        const mapL2 = L.map('L2-educacion').setView([9.94106128502, -84.0468330945], 15);
+
+        const tilesL2 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(mapL2);
+
+        var geojsonL2 = {
+            "type": "Feature",
+            "properties": {
+                "name": "desde_artes_sin_milla",
+                "route": "L2",
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -84.052232462037,
+                        9.935512403082058
+                    ],
+                    [
+                        -84.0523024805564,
+                        9.935530386822947
+                    ],
+                    [
+                        -84.05233541939015,
+                        9.935543179413514
+                    ],
+                    [
+                        -84.05239525820468,
+                        9.935600069681854
+                    ],
+                    [
+                        -84.05242841337048,
+                        9.935652983767284
+                    ],
+                    [
+                        -84.05244044981328,
+                        9.935719143494339
+                    ],
+                    [
+                        -84.05241711804459,
+                        9.935837191624572
+                    ],
+                    [
+                        -84.05238012660216,
+                        9.93594643029256
+                    ],
+                    [
+                        -84.05233436316911,
+                        9.936088345139623
+                    ],
+                    [
+                        -84.05229770789589,
+                        9.93620422239772
+                    ],
+                    [
+                        -84.05227115998841,
+                        9.936293049843002
+                    ],
+                    [
+                        -84.05224052293597,
+                        9.93639226353531
+                    ],
+                    [
+                        -84.05223674575512,
+                        9.936530935539537
+                    ],
+                    [
+                        -84.05225900552114,
+                        9.93659589447438
+                    ],
+                    [
+                        -84.0523412639074,
+                        9.93661615058734
+                    ],
+                    [
+                        -84.05242604048829,
+                        9.936587626541808
+                    ],
+                    [
+                        -84.05244996257038,
+                        9.936535539387705
+                    ],
+                    [
+                        -84.05244734623399,
+                        9.936448674207938
+                    ],
+                    [
+                        -84.05243844819574,
+                        9.93635813864212
+                    ],
+                    [
+                        -84.05242607573601,
+                        9.936329573132959
+                    ],
+                    [
+                        -84.05242543794026,
+                        9.93630067737655
+                    ],
+                    [
+                        -84.05244553864077,
+                        9.936176738519805
+                    ],
+                    [
+                        -84.05246921899192,
+                        9.93606938255121
+                    ],
+                    [
+                        -84.05251342373928,
+                        9.935866287606103
+                    ],
+                    [
+                        -84.0525277028597,
+                        9.935805309825469
+                    ],
+                    [
+                        -84.05253514559811,
+                        9.935717203242092
+                    ],
+                    [
+                        -84.05251709738218,
+                        9.93562932790421
+                    ],
+                    [
+                        -84.05243348274897,
+                        9.935529586151745
+                    ],
+                    [
+                        -84.05235067297903,
+                        9.935455756618282
+                    ],
+                    [
+                        -84.05224461820995,
+                        9.935416381634596
+                    ],
+                    [
+                        -84.05209777314434,
+                        9.935412363778937
+                    ],
+                    [
+                        -84.05176737146839,
+                        9.935360935082201
+                    ],
+                    [
+                        -84.05159574733152,
+                        9.93533537431955
+                    ],
+                    [
+                        -84.05145787613122,
+                        9.935278320748495
+                    ],
+                    [
+                        -84.05105156059403,
+                        9.935373945688056
+                    ],
+                    [
+                        -84.05064884510425,
+                        9.935485095938262
+                    ],
+                    [
+                        -84.05034468667375,
+                        9.93555656904013
+                    ],
+                    [
+                        -84.05014073519379,
+                        9.935606390425988
+                    ],
+                    [
+                        -84.0499188359838,
+                        9.935640140394426
+                    ],
+                    [
+                        -84.04952407415168,
+                        9.935552371067715
+                    ],
+                    [
+                        -84.04931696351811,
+                        9.9355127171103
+                    ],
+                    [
+                        -84.04902551352477,
+                        9.935447596692725
+                    ],
+                    [
+                        -84.0487899823799,
+                        9.935389888174171
+                    ],
+                    [
+                        -84.04864476892648,
+                        9.93537301317815
+                    ],
+                    [
+                        -84.0486366108669,
+                        9.935276584611714
+                    ],
+                    [
+                        -84.04837842466567,
+                        9.935292749955593
+                    ],
+                    [
+                        -84.04812389295134,
+                        9.935246946186737
+                    ],
+                    [
+                        -84.04780572302363,
+                        9.935141657872123
+                    ],
+                    [
+                        -84.04738078272942,
+                        9.935003168157735
+                    ],
+                    [
+                        -84.0470859236543,
+                        9.934920490428638
+                    ],
+                    [
+                        -84.04641956890039,
+                        9.934796571321826
+                    ],
+                    [
+                        -84.04588570203119,
+                        9.93468604728109
+                    ],
+                    [
+                        -84.04561370313775,
+                        9.934612469956903
+                    ],
+                    [
+                        -84.04560813932672,
+                        9.934810228520547
+                    ],
+                    [
+                        -84.0456083692307,
+                        9.934953795605793
+                    ],
+                    [
+                        -84.04558739763488,
+                        9.935021220535134
+                    ],
+                    [
+                        -84.0455815527507,
+                        9.935250699918882
+                    ],
+                    [
+                        -84.04557910552047,
+                        9.93533621207088
+                    ],
+                    [
+                        -84.04552771004512,
+                        9.935579693996203
+                    ],
+                    [
+                        -84.04545454242242,
+                        9.935661417375698
+                    ],
+                    [
+                        -84.04540337496157,
+                        9.935938803744861
+                    ],
+                    [
+                        -84.0453561940705,
+                        9.936179875633599
+                    ],
+                    [
+                        -84.04536222172763,
+                        9.936298784212354
+                    ],
+                    [
+                        -84.04545440779619,
+                        9.936470747930755
+                    ],
+                    [
+                        -84.04554915741873,
+                        9.936647015401306
+                    ],
+                    [
+                        -84.04556710514872,
+                        9.936679961692477
+                    ],
+                    [
+                        -84.04559239513254,
+                        9.936770764870815
+                    ],
+                    [
+                        -84.04558759579072,
+                        9.936850194788036
+                    ],
+                    [
+                        -84.04554598968912,
+                        9.936939390783238
+                    ],
+                    [
+                        -84.04544056570357,
+                        9.937082168795072
+                    ],
+                    [
+                        -84.04527919567383,
+                        9.937241750560503
+                    ],
+                    [
+                        -84.04514377189149,
+                        9.937331750015929
+                    ],
+                    [
+                        -84.0448843455207,
+                        9.937478802768382
+                    ],
+                    [
+                        -84.04468484678033,
+                        9.937593838378547
+                    ],
+                    [
+                        -84.04438772209312,
+                        9.93775722150572
+                    ],
+                    [
+                        -84.0440980878075,
+                        9.937926501602092
+                    ],
+                    [
+                        -84.04379998651925,
+                        9.938099191669792
+                    ],
+                    [
+                        -84.04361479857569,
+                        9.937960978535273
+                    ],
+                    [
+                        -84.04344347877426,
+                        9.937911157734135
+                    ],
+                    [
+                        -84.04321886538143,
+                        9.937885372144109
+                    ],
+                    [
+                        -84.04293822814563,
+                        9.93792474683056
+                    ],
+                    [
+                        -84.04256929767399,
+                        9.937984210827722
+                    ],
+                    [
+                        -84.04247601199195,
+                        9.937997179712212
+                    ],
+                    [
+                        -84.04217742702546,
+                        9.938136196396442
+                    ],
+                    [
+                        -84.04199722825543,
+                        9.93816151133474
+                    ],
+                    [
+                        -84.04184875157759,
+                        9.938153475690854
+                    ],
+                    [
+                        -84.04172230142247,
+                        9.938126957891981
+                    ],
+                    [
+                        -84.04164969469609,
+                        9.938075529759843
+                    ],
+                    [
+                        -84.04163174696542,
+                        9.938014458843085
+                    ],
+                    [
+                        -84.04163505055563,
+                        9.93791897942971
+                    ],
+                    [
+                        -84.04106877299657,
+                        9.937895404637786
+                    ],
+                    [
+                        -84.04092780593461,
+                        9.93846102257875
+                    ],
+                    [
+                        -84.04096368432228,
+                        9.938687705090729
+                    ],
+                    [
+                        -84.04113177957764,
+                        9.938847029677632
+                    ],
+                    [
+                        -84.0416545090707,
+                        9.939150093293335
+                    ],
+                    [
+                        -84.04179401695387,
+                        9.939284372690977
+                    ],
+                    [
+                        -84.0418844077991,
+                        9.939423390953976
+                    ],
+                    [
+                        -84.04190660905877,
+                        9.939499929073435
+                    ],
+                    [
+                        -84.04224755698337,
+                        9.939499929073435
+                    ],
+                    [
+                        -84.04252348804839,
+                        9.939492118562043
+                    ],
+                    [
+                        -84.04332907663165,
+                        9.939424952457301
+                    ],
+                    [
+                        -84.04326169409633,
+                        9.939723120011976
+                    ],
+                    [
+                        -84.04329387391599,
+                        9.9397847344284
+                    ],
+                    [
+                        -84.04338180494075,
+                        9.939818634352505
+                    ],
+                    [
+                        -84.04403087706231,
+                        9.93998824672434
+                    ],
+                    [
+                        -84.04466581589928,
+                        9.940159749713416
+                    ],
+                    [
+                        -84.04482454749615,
+                        9.94026910203425
+                    ],
+                    [
+                        -84.04518735146831,
+                        9.940364903036325
+                    ],
+                    [
+                        -84.0456290389484,
+                        9.940487693230978
+                    ],
+                    [
+                        -84.04559314348845,
+                        9.940636351555767
+                    ],
+                    [
+                        -84.0450690355552,
+                        9.940792345145894
+                    ],
+                    [
+                        -84.04475055130042,
+                        9.940949183833723
+                    ],
+                    [
+                        -84.04465203514692,
+                        9.941045328423726
+                    ],
+                    [
+                        -84.04465719346645,
+                        9.941130814799862
+                    ],
+                    [
+                        -84.04467708633291,
+                        9.941443215276223
+                    ],
+                    [
+                        -84.04471421984395,
+                        9.941954998165244
+                    ],
+                    [
+                        -84.04473711927275,
+                        9.942339483357955
+                    ],
+                    [
+                        -84.04476242033138,
+                        9.942705619420934
+                    ],
+                    [
+                        -84.04476629974614,
+                        9.94282741926446
+                    ],
+                    [
+                        -84.04473424057369,
+                        9.94300876520552
+                    ],
+                    [
+                        -84.04466163067805,
+                        9.943226192822536
+                    ],
+                    [
+                        -84.0446070756693,
+                        9.943361889477686
+                    ],
+                    [
+                        -84.04446646212156,
+                        9.943669388607333
+                    ],
+                    [
+                        -84.04474994416327,
+                        9.94379763572232
+                    ],
+                    [
+                        -84.04487818085151,
+                        9.943877030736516
+                    ],
+                    [
+                        -84.04494962700566,
+                        9.94396544788927
+                    ],
+                    [
+                        -84.04500741826732,
+                        9.944544351519141
+                    ],
+                    [
+                        -84.04500984946038,
+                        9.944949226867266
+                    ],
+                    [
+                        -84.04507261024595,
+                        9.945034888595956
+                    ],
+                    [
+                        -84.04539949713576,
+                        9.945066359312165
+                    ],
+                    [
+                        -84.04549991439252,
+                        9.945093735733835
+                    ],
+                    [
+                        -84.04553848571433,
+                        9.945165879778273
+                    ],
+                    [
+                        -84.04550164010803,
+                        9.945693344892419
+                    ],
+                    [
+                        -84.04545720110887,
+                        9.945768181209047
+                    ],
+                    [
+                        -84.04535716244318,
+                        9.945819189998858
+                    ],
+                    [
+                        -84.04524941242613,
+                        9.94586821736523
+                    ],
+                    [
+                        -84.04517499170143,
+                        9.945945495453373
+                    ],
+                    [
+                        -84.045149887399,
+                        9.946289175177512
+                    ],
+                    [
+                        -84.04516175779462,
+                        9.946387887887
+                    ],
+                    [
+                        -84.04519941426655,
+                        9.946445289825249
+                    ],
+                    [
+                        -84.04525112275684,
+                        9.946490124422965
+                    ]
+                ]
+            }
+        };
+
+        L.geoJSON(geojsonL2, {
+            style: function (feature) {
+                switch (feature.properties.route) {
+                    case 'L1': return { color: "#008641" };
+                    case 'L2': return { color: "#F37021" };
+                }
+            }
+        }).addTo(mapL2);
+    </script>
+    <script>
+
+        const mapL1Back = L.map('L1-deportivas').setView([9.94106128502, -84.0468330945], 15);
+
+        const tilesL1Back = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(mapL1Back);
+
+        var geojsonL1Back = {
+            "type": "Feature",
+            "properties": {
+                "name": "hacia_educacion",
+                "route": "L1",
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -84.04527931458752,
+                        9.94651439468106
+                    ],
+                    [
+                        -84.04536358893668,
+                        9.946569792690624
+                    ],
+                    [
+                        -84.04551335984162,
+                        9.946688190133912
+                    ],
+                    [
+                        -84.0456333624982,
+                        9.946778135955654
+                    ],
+                    [
+                        -84.04582882263958,
+                        9.946921104095367
+                    ],
+                    [
+                        -84.04587842812656,
+                        9.946996670796665
+                    ],
+                    [
+                        -84.04587295674438,
+                        9.947092905354864
+                    ],
+                    [
+                        -84.04577478176616,
+                        9.947221934230129
+                    ],
+                    [
+                        -84.04567660678792,
+                        9.94733469552996
+                    ],
+                    [
+                        -84.0455812484176,
+                        9.947352402673218
+                    ],
+                    [
+                        -84.04548354516776,
+                        9.94731698838683
+                    ],
+                    [
+                        -84.04515548260308,
+                        9.94706401578786
+                    ],
+                    [
+                        -84.04493889058753,
+                        9.946957539813411
+                    ],
+                    [
+                        -84.04479272652569,
+                        9.946855916077482
+                    ],
+                    [
+                        -84.0447132911805,
+                        9.946746914665283
+                    ],
+                    [
+                        -84.04469296890467,
+                        9.946638361966635
+                    ],
+                    [
+                        -84.0447054750041,
+                        9.946585391072801
+                    ],
+                    [
+                        -84.04474690118222,
+                        9.946524570739939
+                    ],
+                    [
+                        -84.04479770687178,
+                        9.946309486758025
+                    ],
+                    [
+                        -84.0448235005163,
+                        9.946065074149928
+                    ],
+                    [
+                        -84.04516428945199,
+                        9.946078931967293
+                    ],
+                    [
+                        -84.04518428957681,
+                        9.94594726623906
+                    ],
+                    [
+                        -84.0452538542911,
+                        9.945875667479484
+                    ],
+                    [
+                        -84.04546016952332,
+                        9.945777959173839
+                    ],
+                    [
+                        -84.04551253846583,
+                        9.94569943146
+                    ],
+                    [
+                        -84.04552524581361,
+                        9.94545154684154
+                    ],
+                    [
+                        -84.04554143570822,
+                        9.945167512992711
+                    ],
+                    [
+                        -84.04550374796729,
+                        9.945088491800036
+                    ],
+                    [
+                        -84.04538354725614,
+                        9.94505511036374
+                    ],
+                    [
+                        -84.04508496563906,
+                        9.945027394840054
+                    ],
+                    [
+                        -84.04505040440216,
+                        9.944994790361278
+                    ],
+                    [
+                        -84.04502087230696,
+                        9.94494963682908
+                    ],
+                    [
+                        -84.04501540113381,
+                        9.944674285912313
+                    ],
+                    [
+                        -84.04500416370776,
+                        9.944357781512537
+                    ],
+                    [
+                        -84.04492871375528,
+                        9.943472683805794
+                    ],
+                    [
+                        -84.04489826787982,
+                        9.942958178805085
+                    ],
+                    [
+                        -84.04485876442031,
+                        9.942300486325578
+                    ],
+                    [
+                        -84.04482229966275,
+                        9.941712286833521
+                    ],
+                    [
+                        -84.04477602197235,
+                        9.94096530647596
+                    ],
+                    [
+                        -84.04487407397343,
+                        9.940906633202687
+                    ],
+                    [
+                        -84.04498719347964,
+                        9.940844060205038
+                    ],
+                    [
+                        -84.04521712895513,
+                        9.940777518974187
+                    ],
+                    [
+                        -84.04539748136571,
+                        9.94072156165138
+                    ],
+                    [
+                        -84.0456042948351,
+                        9.940660223281213
+                    ],
+                    [
+                        -84.04563317351739,
+                        9.94049309734092
+                    ],
+                    [
+                        -84.04543844999728,
+                        9.940439602342586
+                    ],
+                    [
+                        -84.04519530281327,
+                        9.940372447699119
+                    ],
+                    [
+                        -84.04482033075035,
+                        9.940274924444196
+                    ],
+                    [
+                        -84.04474375197013,
+                        9.940224351733917
+                    ],
+                    [
+                        -84.0446621944019,
+                        9.940166814083227
+                    ],
+                    [
+                        -84.04441750309407,
+                        9.940102007021466
+                    ],
+                    [
+                        -84.04448096557812,
+                        9.93987745974345
+                    ],
+                    [
+                        -84.04452458749228,
+                        9.939714594239533
+                    ],
+                    [
+                        -84.04463929026964,
+                        9.939275606160251
+                    ],
+                    [
+                        -84.04465607717029,
+                        9.939205451216523
+                    ],
+                    [
+                        -84.04464488750916,
+                        9.939161106433076
+                    ],
+                    [
+                        -84.04461918132581,
+                        9.939123852924496
+                    ],
+                    [
+                        -84.04455251349327,
+                        9.939116258154328
+                    ],
+                    [
+                        -84.04433375475244,
+                        9.939199415908064
+                    ],
+                    [
+                        -84.044006444136,
+                        9.939110552740118
+                    ],
+                    [
+                        -84.04367477248122,
+                        9.939019008283907
+                    ],
+                    [
+                        -84.0434673567427,
+                        9.938959114260527
+                    ],
+                    [
+                        -84.04336894324543,
+                        9.939287986527304
+                    ],
+                    [
+                        -84.04332748607445,
+                        9.939421150149187
+                    ],
+                    [
+                        -84.04299424060625,
+                        9.939447555121959
+                    ],
+                    [
+                        -84.04273654546866,
+                        9.939468100726444
+                    ],
+                    [
+                        -84.0424561880641,
+                        9.939490178434667
+                    ],
+                    [
+                        -84.04213379105454,
+                        9.939498966419222
+                    ],
+                    [
+                        -84.04192742452625,
+                        9.93950631475532
+                    ],
+                    [
+                        -84.0418524186819,
+                        9.939329580053538
+                    ],
+                    [
+                        -84.04169103980404,
+                        9.93916814008368
+                    ],
+                    [
+                        -84.04144135211489,
+                        9.939005191212033
+                    ],
+                    [
+                        -84.0411391429389,
+                        9.938825654860295
+                    ],
+                    [
+                        -84.04107284544111,
+                        9.938780727009359
+                    ],
+                    [
+                        -84.04102130009329,
+                        9.93872490109004
+                    ],
+                    [
+                        -84.04095447927392,
+                        9.938610047103452
+                    ],
+                    [
+                        -84.04094944038167,
+                        9.938473967975128
+                    ],
+                    [
+                        -84.04103416355248,
+                        9.938146528603482
+                    ],
+                    [
+                        -84.04110144052788,
+                        9.937906712507086
+                    ],
+                    [
+                        -84.04138343140177,
+                        9.937916635552384
+                    ],
+                    [
+                        -84.04162858106494,
+                        9.93793079347671
+                    ],
+                    [
+                        -84.04162545460113,
+                        9.938019671546442
+                    ],
+                    [
+                        -84.0416431189912,
+                        9.93807996226397
+                    ],
+                    [
+                        -84.04167882538917,
+                        9.938107914805173
+                    ],
+                    [
+                        -84.04171788454829,
+                        9.938132564894175
+                    ],
+                    [
+                        -84.04184407551054,
+                        9.938163063531604
+                    ],
+                    [
+                        -84.04195809501249,
+                        9.938168403558052
+                    ],
+                    [
+                        -84.04206325975218,
+                        9.938162334025137
+                    ],
+                    [
+                        -84.04217421204743,
+                        9.938143211232358
+                    ],
+                    [
+                        -84.04243158569307,
+                        9.938030867704455
+                    ],
+                    [
+                        -84.04247809223617,
+                        9.93800811636062
+                    ],
+                    [
+                        -84.04265860324317,
+                        9.937980341577116
+                    ],
+                    [
+                        -84.04305841280991,
+                        9.937917157635525
+                    ],
+                    [
+                        -84.04319557552559,
+                        9.937893782138289
+                    ],
+                    [
+                        -84.04343555055273,
+                        9.937922885836102
+                    ],
+                    [
+                        -84.0435100147268,
+                        9.937933243650733
+                    ],
+                    [
+                        -84.04360737427083,
+                        9.937969256238148
+                    ],
+                    [
+                        -84.04379576900673,
+                        9.938111296326284
+                    ],
+                    [
+                        -84.0440534496211,
+                        9.937961494886665
+                    ],
+                    [
+                        -84.04438361715424,
+                        9.937771337699743
+                    ],
+                    [
+                        -84.04471969788347,
+                        9.9375818272445
+                    ],
+                    [
+                        -84.04496357060077,
+                        9.93745018852863
+                    ],
+                    [
+                        -84.04514635469495,
+                        9.937341807676177
+                    ],
+                    [
+                        -84.0452714142582,
+                        9.937253722002822
+                    ],
+                    [
+                        -84.04542621758844,
+                        9.937108322267008
+                    ],
+                    [
+                        -84.04555865266826,
+                        9.936927199319243
+                    ],
+                    [
+                        -84.04558736119168,
+                        9.936854014429585
+                    ],
+                    [
+                        -84.0455923110153,
+                        9.936773736536864
+                    ],
+                    [
+                        -84.0455680674162,
+                        9.936680196044875
+                    ],
+                    [
+                        -84.04544827878298,
+                        9.936464801485869
+                    ],
+                    [
+                        -84.04538927637267,
+                        9.936365886885852
+                    ],
+                    [
+                        -84.04536970364421,
+                        9.936323088310758
+                    ],
+                    [
+                        -84.04536153030458,
+                        9.936297627703894
+                    ],
+                    [
+                        -84.0453532765511,
+                        9.93624652235345
+                    ],
+                    [
+                        -84.0453570927397,
+                        9.936187325948381
+                    ],
+                    [
+                        -84.0453927689936,
+                        9.93603538344972
+                    ],
+                    [
+                        -84.045437957483,
+                        9.935779917643245
+                    ],
+                    [
+                        -84.04546214210023,
+                        9.93565154581259
+                    ],
+                    [
+                        -84.04552945094999,
+                        9.935584824993228
+                    ],
+                    [
+                        -84.04564055546274,
+                        9.935337870826146
+                    ],
+                    [
+                        -84.04564108118159,
+                        9.935010933303701
+                    ],
+                    [
+                        -84.04560879988375,
+                        9.934959684128188
+                    ],
+                    [
+                        -84.04561967579563,
+                        9.934648586977218
+                    ],
+                    [
+                        -84.04629473407901,
+                        9.93480225304748
+                    ],
+                    [
+                        -84.0470992295944,
+                        9.934956107215086
+                    ],
+                    [
+                        -84.04773828177501,
+                        9.935144666399196
+                    ],
+                    [
+                        -84.04812896146304,
+                        9.935275846092424
+                    ],
+                    [
+                        -84.04838471764192,
+                        9.935315833498635
+                    ],
+                    [
+                        -84.0486296483808,
+                        9.935299838255858
+                    ],
+                    [
+                        -84.04864918886175,
+                        9.935455202670596
+                    ],
+                    [
+                        -84.04880551271481,
+                        9.935470398008505
+                    ],
+                    [
+                        -84.04908323683499,
+                        9.935536679722375
+                    ],
+                    [
+                        -84.04931624874176,
+                        9.935597760447905
+                    ],
+                    [
+                        -84.04959180833029,
+                        9.935702436952397
+                    ],
+                    [
+                        -84.04967877684776,
+                        9.93571038517426
+                    ],
+                    [
+                        -84.04996965580762,
+                        9.935710384842253
+                    ],
+                    [
+                        -84.05009541582274,
+                        9.935703217141935
+                    ],
+                    [
+                        -84.05034197605185,
+                        9.935667008576047
+                    ],
+                    [
+                        -84.05064702961212,
+                        9.935606746469446
+                    ],
+                    [
+                        -84.0510737676674,
+                        9.935533432162174
+                    ],
+                    [
+                        -84.05130751403954,
+                        9.935492631008493
+                    ],
+                    [
+                        -84.05154595427821,
+                        9.935462728034636
+                    ],
+                    [
+                        -84.05165259310198,
+                        9.935449555489662
+                    ],
+                    [
+                        -84.05176057302998,
+                        9.935447941622215
+                    ],
+                    [
+                        -84.05198305958552,
+                        9.93547169143514
+                    ],
+                    [
+                        -84.05210818895267,
+                        9.935488928329534
+                    ],
+                    [
+                        -84.05218270177936,
+                        9.935501757962939
+                    ]
+                ]
+            }
+        };
+
+        L.geoJSON(geojsonL1Back, {
+            style: function (feature) {
+                switch (feature.properties.route) {
+                    case 'L1': return { color: "#008641" };
+                    case 'L2': return { color: "#F37021" };
+                }
+            }
+        }).addTo(mapL1Back);
+    </script>
+</body>
+
+</html>

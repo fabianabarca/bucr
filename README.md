@@ -1,7 +1,7 @@
 # bUCR
 Sitio web del servicio de bus de la UCR (primera versión estática).
 
-
+<img src="img/b_azul_fondo_blanco.png" width="100px">
 
 Parte del plan piloto del sistema de información para el servicio del bus interno de la Universidad de Costa Rica, desarrollado por:
 
