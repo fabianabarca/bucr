@@ -10,3 +10,5 @@ Parte del plan piloto del sistema de información para el servicio del bus inter
 - Seminario de Trabajo Final de Graduación de Licenciatura en Ingeniería Eléctrica "Diseño de una arquitectura de referencia para un sistema inteligente de transporte público en Costa Rica"
 
 Bajo la coordinación de Fabián Abarca Calderón, profesor de Ingeniería Eléctrica de la Universidad de Costa Rica.
+
+<img src="img/el_b_es_el_bus_negro.png" width="300px">
