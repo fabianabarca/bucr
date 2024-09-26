@@ -845,7 +845,7 @@
             </div>
             <div class="col">
                 <div class="card h-100">
-                    <div class="card-img-top" id="L2-deportivas" style="max-width: 800px; height: 325px;"></div>
+                    <div class="card-img-top" id="L1-deportivas" style="max-width: 800px; height: 325px;"></div>
                     <div class="card-body">
                         <h5 class="card-title">
                             <span class="badge rounded-pill badge-l1">L1</span>
@@ -1762,8 +1762,8 @@
         L.geoJSON(geojsonL2, {
             style: function (feature) {
                 switch (feature.properties.route) {
-                    case 'L2': return { color: "#008641" };
-                    case 'L1': return { color: "#F37021" };
+                    case 'L2': return { color: "#005DA4" };
+                    case 'L1': return { color: "#00C0F3" };
                 }
             }
         }).addTo(mapL2);
@@ -2356,26 +2356,26 @@
         L.geoJSON(geojsonL1, {
             style: function (feature) {
                 switch (feature.properties.route) {
-                    case 'L2': return { color: "#008641" };
-                    case 'L1': return { color: "#F37021" };
+                    case 'L2': return { color: "#005DA4" };
+                    case 'L1': return { color: "#00C0F3" };
                 }
             }
         }).addTo(mapL1);
     </script>
     <script>
 
-        const mapL2Back = L.map('L2-deportivas').setView([9.94106128502, -84.0468330945], 15);
+        const mapL1Back = L.map('L1-deportivas').setView([9.94106128502, -84.0468330945], 15);
 
-        const tilesL2Back = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        const tilesL1Back = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(mapL2Back);
+        }).addTo(mapL1Back);
 
-        var geojsonL2Back = {
+        var geojsonL1Back = {
             "type": "Feature",
             "properties": {
                 "name": "hacia_educacion",
-                "route": "L2",
+                "route": "L1",
             },
             "geometry": {
                 "type": "LineString",
@@ -2972,14 +2972,14 @@
             }
         };
 
-        L.geoJSON(geojsonL2Back, {
+        L.geoJSON(geojsonL1Back, {
             style: function (feature) {
                 switch (feature.properties.route) {
-                    case 'L2': return { color: "#008641" };
-                    case 'L1': return { color: "#F37021" };
+                    case 'L2': return { color: "#005DA4" };
+                    case 'L1': return { color: "#00C0F3" };
                 }
             }
-        }).addTo(mapL2Back);
+        }).addTo(mapL1Back);
     </script>
 </body>
 
