@@ -107,8 +107,16 @@
 
         <p class="lead">El bus interno funciona de lunes a viernes. Horario válido del 12 de agosto al 6 de diciembre de 2024.</p>
 
-        <div class="row row-cols-1 row-cols-md-2 g-5">
-            <div class="col">
+        <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><span class="smaller text-muted text-uppercase">Hacia</span> Deportivas</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><span class="smaller text-muted text-uppercase">Desde</span> Deportivas</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade my-3 show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                 <h4>
                     Sentido Finca 1 <i class="bi bi-caret-right-fill"></i> Finca 3
                 </h4>
@@ -464,9 +472,8 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
-            <div class="col">
+            <div class="tab-pane fade my-3" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                 <h4>
                     Sentido Finca 3 <i class="bi bi-caret-right-fill"></i> Finca 1
 
@@ -803,7 +810,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
 
@@ -816,45 +822,43 @@
         <h1 class="mt-5" id="mapas"><i class="bi bi-map-fill"></i> Mapas</h1>
 
         <p class="lead">Estas son las trayectorias recorridas por las rutas, en ida y retorno (cuando aplica).</p>
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-img-top" id="L1-educacion" style="max-width: 800px; height: 325px;"></div>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <span class="badge rounded-pill badge-l1">L1</span>
-                            <span class="smaller text-muted text-uppercase">Hacia</span>
-                            Deportivas
-                        </h5>
-                        <p class="card-text">Desde Educación o Artes Plásticas hacia las Deportivas <strong>sin</strong> vuelta a la milla universitaria</p>
-                    </div>
-                </div>
+
+        <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="l1-deportivas-tab" data-bs-toggle="tab" data-bs-target="#l1-deportivas-tab-pane" type="button" role="tab" aria-controls="l1-deportivas-tab-pane" aria-selected="true">
+                    <span class="badge rounded-pill badge-l1">L1</span>
+                    <span class="smaller text-muted text-uppercase">Hacia</span>
+                    Deportivas
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="l2-deportivas-tab" data-bs-toggle="tab" data-bs-target="#l2-deportivas-tab-pane" type="button" role="tab" aria-controls="l2-deportivas-tab-pane" aria-selected="false">
+                    <span class="badge rounded-pill badge-l2">L2</span>
+                    <span class="smaller text-muted text-uppercase">Hacia</span>
+                    Deportivas
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="l1-educacion-tab" data-bs-toggle="tab" data-bs-target="#l1-educacion-tab-pane" type="button" role="tab" aria-controls="l1-educacion-tab-pane" aria-selected="false"><span class="badge rounded-pill badge-l1">L1</span>
+                    <span class="smaller text-muted text-uppercase">Hacia</span>
+                    Educación | Artes Plásticas</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <!--L1 Hacia Deportivas-->
+            <div class="tab-pane fade show active" id="l1-deportivas-tab-pane" role="tabpanel" aria-labelledby="l1-deportivas-tab" tabindex="0">
+                <p class="mt-3">Desde Educación o Artes Plásticas hacia las Deportivas <strong>sin</strong> vuelta a la milla universitaria</p>
+                <div id="L1-educacion" style="max-width: 1000px; height: 325px;"></div>
             </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-img-top" id="L2-educacion" style="max-width: 800px; height: 325px;"></div>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <span class="badge rounded-pill badge-l2">L2</span>
-                            <span class="smaller text-muted text-uppercase">Hacia</span>
-                            Deportivas
-                        </h5>
-                        <p class="card-text">Desde Educación o Artes Plásticas hacia las Deportivas <strong>con</strong> vuelta a la milla universitaria</p>
-                    </div>
-                </div>
+            <!--L2 Hacia Deportivas-->
+            <div class="tab-pane fade" id="l2-deportivas-tab-pane" role="tabpanel" aria-labelledby="l2-deportivas-tab" tabindex="0">
+                <p class="mt-3">Desde Educación o Artes Plásticas hacia las Deportivas <strong>con</strong> vuelta a la milla universitaria</p>
+                <div id="L2-educacion" style="max-width: 1000px; height: 325px;"></div>
             </div>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-img-top" id="L1-deportivas" style="max-width: 800px; height: 325px;"></div>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <span class="badge rounded-pill badge-l1">L1</span>
-                            <span class="smaller text-muted text-uppercase">Hacia</span>
-                            Educación | Artes Plásticas
-                        </h5>
-                        <p class="card-text">Desde las Deportivas hacia Educación o Artes Plásticas <strong>sin</strong> vuelta a la milla universitaria</p>
-                    </div>
-                </div>
+            <!--L1 Hacia Educación / Artes Plásticas-->
+            <div class="tab-pane fade" id="l1-educacion-tab-pane" role="tabpanel" aria-labelledby="l1-educacion-tab" tabindex="0">
+                <p class="mt-3">Desde las Deportivas hacia Educación o Artes Plásticas <strong>sin</strong> vuelta a la milla universitaria</p>
+                <div id="L1-deportivas" style="max-width: 1000px; height: 325px;"></div>
             </div>
         </div>
 
@@ -1048,6 +1052,9 @@
             </div>
         </footer>
     </div>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -1767,7 +1774,16 @@
                 }
             }
         }).addTo(mapL2);
+
     </script>
+
+    <script>
+        $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+            console.log('e.target', e.target);
+            mapL2.invalidateSize();
+        });
+    </script>
+
     <script>
         const mapL1 = L.map('L1-educacion').setView([9.94106128502, -84.0468330945], 15);
 
