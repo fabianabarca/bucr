@@ -824,6 +824,7 @@
         <p class="lead">Estas son las trayectorias recorridas por las rutas, en ida y retorno (cuando aplica).</p>
 
         <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
+          <!-- MAPAS TAB BUTTONS HEADERS -->
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="l1-deportivas-tab" data-bs-toggle="tab" data-bs-target="#l1-deportivas-tab-pane" type="button" role="tab" aria-controls="l1-deportivas-tab-pane" aria-selected="true">
                     <span class="badge rounded-pill badge-l1">L1</span>
@@ -839,22 +840,32 @@
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="l1-educacion-tab" data-bs-toggle="tab" data-bs-target="#l1-educacion-tab-pane" type="button" role="tab" aria-controls="l1-educacion-tab-pane" aria-selected="false"><span class="badge rounded-pill badge-l1">L1</span>
-                    <span class="smaller text-muted text-uppercase">Hacia</span>
-                    Educación | Artes Plásticas</button>
+                <button class="nav-link" id="l1-educacion-tab" data-bs-toggle="tab" data-bs-target="#l1-educacion-tab-pane" type="button" role="tab" aria-controls="l1-educacion-tab-pane" aria-selected="false">
+                  <span class="badge rounded-pill badge-l1">L1</span>
+                  <span class="smaller text-muted text-uppercase">Hacia</span>
+                    Educación | Artes Plásticas
+                </button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
+          <!-- MAPAS TAB BUTTONS CONTENTS -->
+
             <!--L1 Hacia Deportivas-->
             <div class="tab-pane fade show active" id="l1-deportivas-tab-pane" role="tabpanel" aria-labelledby="l1-deportivas-tab" tabindex="0">
                 <p class="mt-3">Desde Educación o Artes Plásticas hacia las Deportivas <strong>sin</strong> vuelta a la milla universitaria</p>
                 <div id="L1-educacion" style="max-width: 1000px; height: 325px;"></div>
+                <script>
+                  console.log("test1")
+                  initializeMapL1();
+                </script>
             </div>
+           
             <!--L2 Hacia Deportivas-->
             <div class="tab-pane fade" id="l2-deportivas-tab-pane" role="tabpanel" aria-labelledby="l2-deportivas-tab" tabindex="0">
                 <p class="mt-3">Desde Educación o Artes Plásticas hacia las Deportivas <strong>con</strong> vuelta a la milla universitaria</p>
                 <div id="L2-educacion" style="max-width: 1000px; height: 325px;"></div>
             </div>
+           
             <!--L1 Hacia Educación / Artes Plásticas-->
             <div class="tab-pane fade" id="l1-educacion-tab-pane" role="tabpanel" aria-labelledby="l1-educacion-tab" tabindex="0">
                 <p class="mt-3">Desde las Deportivas hacia Educación o Artes Plásticas <strong>sin</strong> vuelta a la milla universitaria</p>
@@ -1061,13 +1072,6 @@
 
     <!-- Leaflet Map JS -->
     <script>
-
-        const mapL2 = L.map('L2-educacion').setView([9.94106128502, -84.0468330945], 15);
-
-        const tilesL2 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(mapL2);
 
         var geojsonL2 = {
             "type": "Feature",
@@ -1766,31 +1770,13 @@
             }
         };
 
-        L.geoJSON(geojsonL2, {
-            style: function (feature) {
-                switch (feature.properties.route) {
-                    case 'L2': return { color: "#005DA4" };
-                    case 'L1': return { color: "#00C0F3" };
-                }
-            }
-        }).addTo(mapL2);
 
     </script>
 
-    <script>
-        $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-            console.log('e.target', e.target);
-            mapL2.invalidateSize();
-        });
-    </script>
+    
 
     <script>
-        const mapL1 = L.map('L1-educacion').setView([9.94106128502, -84.0468330945], 15);
 
-        const tilesL1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(mapL1);
 
         var geojsonL1 = {
             "type": "Feature",
@@ -2369,23 +2355,8 @@
             }
         };
 
-        L.geoJSON(geojsonL1, {
-            style: function (feature) {
-                switch (feature.properties.route) {
-                    case 'L2': return { color: "#005DA4" };
-                    case 'L1': return { color: "#00C0F3" };
-                }
-            }
-        }).addTo(mapL1);
     </script>
     <script>
-
-        const mapL1Back = L.map('L1-deportivas').setView([9.94106128502, -84.0468330945], 15);
-
-        const tilesL1Back = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(mapL1Back);
 
         var geojsonL1Back = {
             "type": "Feature",
@@ -2988,15 +2959,71 @@
             }
         };
 
-        L.geoJSON(geojsonL1Back, {
-            style: function (feature) {
-                switch (feature.properties.route) {
-                    case 'L2': return { color: "#005DA4" };
-                    case 'L1': return { color: "#00C0F3" };
-                }
-            }
-        }).addTo(mapL1Back);
     </script>
+
+    <script>
+      // Define map variables
+      let mapL1, mapL2, mapL1Back;
+
+      // Function to initialize map L1
+      function initializeMapL1() {
+          console.log("Initializing Map L1");
+          mapL1 = L.map('L1-educacion').setView([9.94106128502, -84.0468330945], 15);
+          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }).addTo(mapL1);
+          L.geoJSON(geojsonL1, { style: { color: "#00C0F3" } }).addTo(mapL1);
+      }
+
+      // Function to initialize map L1
+      function initializeMapL1Back() {
+          console.log("Initializing Map L1 Back");
+          mapL1Back = L.map('L1-deportivas').setView([9.94106128502, -84.0468330945], 15);
+          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }).addTo(mapL1Back);
+          L.geoJSON(geojsonL1Back, { style: { color: "#00C0F3" } }).addTo(mapL1Back);
+      }
+
+      // Function to initialize map L2
+      function initializeMapL2() {
+          console.log("Initializing Map L2");
+          mapL2 = L.map('L2-educacion').setView([9.94106128502, -84.0468330945], 15);
+          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              maxZoom: 19,
+              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }).addTo(mapL2);
+          L.geoJSON(geojsonL2, { style: { color: "#005DA4" } }).addTo(mapL2);
+      }
+
+      // Event listener for tab switching
+      $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+          const target = $(e.target).attr("aria-controls");
+          console.log("Switched tab to:", target);
+
+          if (target === 'l1-deportivas-tab-pane') {
+              if (!mapL1) initializeMapL1();
+              setTimeout(() => mapL1.invalidateSize(), 100);
+          } else if (target === 'l2-deportivas-tab-pane') {
+              if (!mapL2) initializeMapL2();
+              setTimeout(() => mapL2.invalidateSize(), 100);
+          } else if (target === 'l1-educacion-tab-pane') {
+              if (!mapL1Back) initializeMapL1Back();
+              setTimeout(() => mapL1Back.invalidateSize(), 100);
+          }
+      });
+
+      // Initialize the default tab map immediately on page load
+      document.addEventListener('DOMContentLoaded', function () {
+          if (!mapL1) {
+              initializeMapL1();
+              setTimeout(() => mapL1.invalidateSize(), 100);
+          }
+      });
+    </script>
+
 </body>
 
 </html>
