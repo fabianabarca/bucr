@@ -2962,10 +2962,8 @@
     </script>
 
     <script>
-      // Define map variables
       let mapL1, mapL2, mapL1Back;
 
-      // Function to initialize map L1
       function initializeMapL1() {
           console.log("Initializing Map L1");
           mapL1 = L.map('L1-educacion').setView([9.94106128502, -84.0468330945], 15);
@@ -2976,7 +2974,6 @@
           L.geoJSON(geojsonL1, { style: { color: "#00C0F3" } }).addTo(mapL1);
       }
 
-      // Function to initialize map L1
       function initializeMapL1Back() {
           console.log("Initializing Map L1 Back");
           mapL1Back = L.map('L1-deportivas').setView([9.94106128502, -84.0468330945], 15);
@@ -2987,7 +2984,6 @@
           L.geoJSON(geojsonL1Back, { style: { color: "#00C0F3" } }).addTo(mapL1Back);
       }
 
-      // Function to initialize map L2
       function initializeMapL2() {
           console.log("Initializing Map L2");
           mapL2 = L.map('L2-educacion').setView([9.94106128502, -84.0468330945], 15);
@@ -2998,7 +2994,6 @@
           L.geoJSON(geojsonL2, { style: { color: "#005DA4" } }).addTo(mapL2);
       }
 
-      // Event listener for tab switching
       $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
           const target = $(e.target).attr("aria-controls");
           console.log("Switched tab to:", target);
@@ -3015,7 +3010,6 @@
           }
       });
 
-      // Initialize the default tab map immediately on page load
       document.addEventListener('DOMContentLoaded', function () {
           if (!mapL1) {
               initializeMapL1();
