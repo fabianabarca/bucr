@@ -876,20 +876,20 @@
         <!-- Paradas -->
         <h1 class="mt-5" id="paradas"><i class="bi bi-geo-alt-fill"></i> Paradas</h1>
 
-        <!-- agregar mapa que muestre las paradas -->
-        <div id="mapa-paradas" style="max-width: 1000px; height: 325px;"></div>
-
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <ul class="nav nav-pills nav-fill" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Sentido Finca 1 <i class="bi bi-caret-right-fill"></i> Finca 3</button>
+              <button class="nav-link active" id="paradas-0-tab" data-bs-toggle="tab" data-bs-target="#paradas-0-tab-pane" type="button" role="tab" aria-controls="paradas-0-tab-pane" aria-selected="true"><span class="smaller text-muted text-uppercase">Hacia</span> Deportivas</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Sentido Finca 3 <i class="bi bi-caret-right-fill"></i> Finca 1</button>
+              <button class="nav-link" id="paradas-1-tab" data-bs-toggle="tab" data-bs-target="#paradas-1-tab-pane" type="button" role="tab" aria-controls="paradas-1-tab-pane" aria-selected="false"><span class="smaller text-muted text-uppercase">Desde</span> Deportivas</button>
             </li>
           </ul>
-          <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+          <div class="tab-content" id="stops-tabContent">
+            <div class="tab-pane fade show active" id="paradas-0-tab-pane" role="tabpanel" aria-labelledby="paradas-0-tab" tabindex="0">
                 <h4 class="mt-4">Sentido Finca 1 <i class="bi bi-caret-right-fill"></i> Finca 3</h4>
+
+                <!-- Paradas Sentido Finca 1 a Finca 3 -->
+                <div id="mapa-paradas-0" style="max-width: 1000px; height: 325px;"></div>
 
                 <table class="table">
                     <thead>
@@ -989,8 +989,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="tab-pane fade" id="paradas-1-tab-pane" role="tabpanel" aria-labelledby="paradas-1-tab" tabindex="0">
                 <h4 class="mt-4">Sentido Finca 3 <i class="bi bi-caret-right-fill"></i> Finca 1</h4>
+
+                <!-- Paradas Sentido Finca 3 a Finca 1 -->
+                <div id="mapa-paradas-1" style="max-width: 1000px; height: 325px;"></div>
 
                 <table class="table">
                     <thead>
@@ -2977,73 +2980,10 @@
 
     </script>
 
+    <!-- mapa para mostrar las paradas 0 -->
     <script>
-      let mapL1, mapL2, mapL1Back;
 
-      function initializeMapL1() {
-          console.log("Initializing Map L1");
-          mapL1 = L.map('L1-educacion').setView([9.94106128502, -84.0468330945], 15);
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
-              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          }).addTo(mapL1);
-          L.geoJSON(geojsonL1, { style: { color: "#00C0F3" } }).addTo(mapL1);
-      }
-
-      function initializeMapL1Back() {
-          console.log("Initializing Map L1 Back");
-          mapL1Back = L.map('L1-deportivas').setView([9.94106128502, -84.0468330945], 15);
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
-              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          }).addTo(mapL1Back);
-          L.geoJSON(geojsonL1Back, { style: { color: "#00C0F3" } }).addTo(mapL1Back);
-      }
-
-      function initializeMapL2() {
-          console.log("Initializing Map L2");
-          mapL2 = L.map('L2-educacion').setView([9.94106128502, -84.0468330945], 15);
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              maxZoom: 19,
-              attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          }).addTo(mapL2);
-          L.geoJSON(geojsonL2, { style: { color: "#005DA4" } }).addTo(mapL2);
-      }
-
-      $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-          const target = $(e.target).attr("aria-controls");
-          console.log("Switched tab to:", target);
-
-          if (target === 'l1-deportivas-tab-pane') {
-              if (!mapL1) initializeMapL1();
-              setTimeout(() => mapL1.invalidateSize(), 100);
-          } else if (target === 'l2-deportivas-tab-pane') {
-              if (!mapL2) initializeMapL2();
-              setTimeout(() => mapL2.invalidateSize(), 100);
-          } else if (target === 'l1-educacion-tab-pane') {
-              if (!mapL1Back) initializeMapL1Back();
-              setTimeout(() => mapL1Back.invalidateSize(), 100);
-          }
-      });
-
-      document.addEventListener('DOMContentLoaded', function () {
-          if (!mapL1) {
-              initializeMapL1();
-              setTimeout(() => mapL1.invalidateSize(), 100);
-          }
-      });
-    </script>
-
-    <!-- mapa para mostrar las paradas -->
-    <script>
-        const mapStops = L.map('mapa-paradas').setView([9.94106128502, -84.0468330945], 15);
-
-        const tilesStops = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(mapStops);
-
-        var geojsonStops = {
+        var geojsonStops0 = {
             "type": "Feature",
             "properties": {
                 "name": "desde_artes_sin_milla",
@@ -3620,14 +3560,615 @@
             }
         };
 
-        L.geoJSON(geojsonStops, {
-            style: function (feature) {
-                switch (feature.properties.route) {
-                    case 'L2': return { color: "#005DA4" };
-                    case 'L1': return { color: "#00C0F3" };
-                }
+    </script>
+
+    <!-- mapa para mostrar las paradas 1 -->
+    <script>
+
+        var geojsonStops1 = {
+            "type": "Feature",
+            "properties": {
+                "name": "hacia_educacion",
+                "route": "L1",
+            },
+            "geometry": {
+                "type": "LineString",
+                "coordinates": [
+                    [
+                        -84.04527931458752,
+                        9.94651439468106
+                    ],
+                    [
+                        -84.04536358893668,
+                        9.946569792690624
+                    ],
+                    [
+                        -84.04551335984162,
+                        9.946688190133912
+                    ],
+                    [
+                        -84.0456333624982,
+                        9.946778135955654
+                    ],
+                    [
+                        -84.04582882263958,
+                        9.946921104095367
+                    ],
+                    [
+                        -84.04587842812656,
+                        9.946996670796665
+                    ],
+                    [
+                        -84.04587295674438,
+                        9.947092905354864
+                    ],
+                    [
+                        -84.04577478176616,
+                        9.947221934230129
+                    ],
+                    [
+                        -84.04567660678792,
+                        9.94733469552996
+                    ],
+                    [
+                        -84.0455812484176,
+                        9.947352402673218
+                    ],
+                    [
+                        -84.04548354516776,
+                        9.94731698838683
+                    ],
+                    [
+                        -84.04515548260308,
+                        9.94706401578786
+                    ],
+                    [
+                        -84.04493889058753,
+                        9.946957539813411
+                    ],
+                    [
+                        -84.04479272652569,
+                        9.946855916077482
+                    ],
+                    [
+                        -84.0447132911805,
+                        9.946746914665283
+                    ],
+                    [
+                        -84.04469296890467,
+                        9.946638361966635
+                    ],
+                    [
+                        -84.0447054750041,
+                        9.946585391072801
+                    ],
+                    [
+                        -84.04474690118222,
+                        9.946524570739939
+                    ],
+                    [
+                        -84.04479770687178,
+                        9.946309486758025
+                    ],
+                    [
+                        -84.0448235005163,
+                        9.946065074149928
+                    ],
+                    [
+                        -84.04516428945199,
+                        9.946078931967293
+                    ],
+                    [
+                        -84.04518428957681,
+                        9.94594726623906
+                    ],
+                    [
+                        -84.0452538542911,
+                        9.945875667479484
+                    ],
+                    [
+                        -84.04546016952332,
+                        9.945777959173839
+                    ],
+                    [
+                        -84.04551253846583,
+                        9.94569943146
+                    ],
+                    [
+                        -84.04552524581361,
+                        9.94545154684154
+                    ],
+                    [
+                        -84.04554143570822,
+                        9.945167512992711
+                    ],
+                    [
+                        -84.04550374796729,
+                        9.945088491800036
+                    ],
+                    [
+                        -84.04538354725614,
+                        9.94505511036374
+                    ],
+                    [
+                        -84.04508496563906,
+                        9.945027394840054
+                    ],
+                    [
+                        -84.04505040440216,
+                        9.944994790361278
+                    ],
+                    [
+                        -84.04502087230696,
+                        9.94494963682908
+                    ],
+                    [
+                        -84.04501540113381,
+                        9.944674285912313
+                    ],
+                    [
+                        -84.04500416370776,
+                        9.944357781512537
+                    ],
+                    [
+                        -84.04492871375528,
+                        9.943472683805794
+                    ],
+                    [
+                        -84.04489826787982,
+                        9.942958178805085
+                    ],
+                    [
+                        -84.04485876442031,
+                        9.942300486325578
+                    ],
+                    [
+                        -84.04482229966275,
+                        9.941712286833521
+                    ],
+                    [
+                        -84.04477602197235,
+                        9.94096530647596
+                    ],
+                    [
+                        -84.04487407397343,
+                        9.940906633202687
+                    ],
+                    [
+                        -84.04498719347964,
+                        9.940844060205038
+                    ],
+                    [
+                        -84.04521712895513,
+                        9.940777518974187
+                    ],
+                    [
+                        -84.04539748136571,
+                        9.94072156165138
+                    ],
+                    [
+                        -84.0456042948351,
+                        9.940660223281213
+                    ],
+                    [
+                        -84.04563317351739,
+                        9.94049309734092
+                    ],
+                    [
+                        -84.04543844999728,
+                        9.940439602342586
+                    ],
+                    [
+                        -84.04519530281327,
+                        9.940372447699119
+                    ],
+                    [
+                        -84.04482033075035,
+                        9.940274924444196
+                    ],
+                    [
+                        -84.04474375197013,
+                        9.940224351733917
+                    ],
+                    [
+                        -84.0446621944019,
+                        9.940166814083227
+                    ],
+                    [
+                        -84.04441750309407,
+                        9.940102007021466
+                    ],
+                    [
+                        -84.04448096557812,
+                        9.93987745974345
+                    ],
+                    [
+                        -84.04452458749228,
+                        9.939714594239533
+                    ],
+                    [
+                        -84.04463929026964,
+                        9.939275606160251
+                    ],
+                    [
+                        -84.04465607717029,
+                        9.939205451216523
+                    ],
+                    [
+                        -84.04464488750916,
+                        9.939161106433076
+                    ],
+                    [
+                        -84.04461918132581,
+                        9.939123852924496
+                    ],
+                    [
+                        -84.04455251349327,
+                        9.939116258154328
+                    ],
+                    [
+                        -84.04433375475244,
+                        9.939199415908064
+                    ],
+                    [
+                        -84.044006444136,
+                        9.939110552740118
+                    ],
+                    [
+                        -84.04367477248122,
+                        9.939019008283907
+                    ],
+                    [
+                        -84.0434673567427,
+                        9.938959114260527
+                    ],
+                    [
+                        -84.04336894324543,
+                        9.939287986527304
+                    ],
+                    [
+                        -84.04332748607445,
+                        9.939421150149187
+                    ],
+                    [
+                        -84.04299424060625,
+                        9.939447555121959
+                    ],
+                    [
+                        -84.04273654546866,
+                        9.939468100726444
+                    ],
+                    [
+                        -84.0424561880641,
+                        9.939490178434667
+                    ],
+                    [
+                        -84.04213379105454,
+                        9.939498966419222
+                    ],
+                    [
+                        -84.04192742452625,
+                        9.93950631475532
+                    ],
+                    [
+                        -84.0418524186819,
+                        9.939329580053538
+                    ],
+                    [
+                        -84.04169103980404,
+                        9.93916814008368
+                    ],
+                    [
+                        -84.04144135211489,
+                        9.939005191212033
+                    ],
+                    [
+                        -84.0411391429389,
+                        9.938825654860295
+                    ],
+                    [
+                        -84.04107284544111,
+                        9.938780727009359
+                    ],
+                    [
+                        -84.04102130009329,
+                        9.93872490109004
+                    ],
+                    [
+                        -84.04095447927392,
+                        9.938610047103452
+                    ],
+                    [
+                        -84.04094944038167,
+                        9.938473967975128
+                    ],
+                    [
+                        -84.04103416355248,
+                        9.938146528603482
+                    ],
+                    [
+                        -84.04110144052788,
+                        9.937906712507086
+                    ],
+                    [
+                        -84.04138343140177,
+                        9.937916635552384
+                    ],
+                    [
+                        -84.04162858106494,
+                        9.93793079347671
+                    ],
+                    [
+                        -84.04162545460113,
+                        9.938019671546442
+                    ],
+                    [
+                        -84.0416431189912,
+                        9.93807996226397
+                    ],
+                    [
+                        -84.04167882538917,
+                        9.938107914805173
+                    ],
+                    [
+                        -84.04171788454829,
+                        9.938132564894175
+                    ],
+                    [
+                        -84.04184407551054,
+                        9.938163063531604
+                    ],
+                    [
+                        -84.04195809501249,
+                        9.938168403558052
+                    ],
+                    [
+                        -84.04206325975218,
+                        9.938162334025137
+                    ],
+                    [
+                        -84.04217421204743,
+                        9.938143211232358
+                    ],
+                    [
+                        -84.04243158569307,
+                        9.938030867704455
+                    ],
+                    [
+                        -84.04247809223617,
+                        9.93800811636062
+                    ],
+                    [
+                        -84.04265860324317,
+                        9.937980341577116
+                    ],
+                    [
+                        -84.04305841280991,
+                        9.937917157635525
+                    ],
+                    [
+                        -84.04319557552559,
+                        9.937893782138289
+                    ],
+                    [
+                        -84.04343555055273,
+                        9.937922885836102
+                    ],
+                    [
+                        -84.0435100147268,
+                        9.937933243650733
+                    ],
+                    [
+                        -84.04360737427083,
+                        9.937969256238148
+                    ],
+                    [
+                        -84.04379576900673,
+                        9.938111296326284
+                    ],
+                    [
+                        -84.0440534496211,
+                        9.937961494886665
+                    ],
+                    [
+                        -84.04438361715424,
+                        9.937771337699743
+                    ],
+                    [
+                        -84.04471969788347,
+                        9.9375818272445
+                    ],
+                    [
+                        -84.04496357060077,
+                        9.93745018852863
+                    ],
+                    [
+                        -84.04514635469495,
+                        9.937341807676177
+                    ],
+                    [
+                        -84.0452714142582,
+                        9.937253722002822
+                    ],
+                    [
+                        -84.04542621758844,
+                        9.937108322267008
+                    ],
+                    [
+                        -84.04555865266826,
+                        9.936927199319243
+                    ],
+                    [
+                        -84.04558736119168,
+                        9.936854014429585
+                    ],
+                    [
+                        -84.0455923110153,
+                        9.936773736536864
+                    ],
+                    [
+                        -84.0455680674162,
+                        9.936680196044875
+                    ],
+                    [
+                        -84.04544827878298,
+                        9.936464801485869
+                    ],
+                    [
+                        -84.04538927637267,
+                        9.936365886885852
+                    ],
+                    [
+                        -84.04536970364421,
+                        9.936323088310758
+                    ],
+                    [
+                        -84.04536153030458,
+                        9.936297627703894
+                    ],
+                    [
+                        -84.0453532765511,
+                        9.93624652235345
+                    ],
+                    [
+                        -84.0453570927397,
+                        9.936187325948381
+                    ],
+                    [
+                        -84.0453927689936,
+                        9.93603538344972
+                    ],
+                    [
+                        -84.045437957483,
+                        9.935779917643245
+                    ],
+                    [
+                        -84.04546214210023,
+                        9.93565154581259
+                    ],
+                    [
+                        -84.04552945094999,
+                        9.935584824993228
+                    ],
+                    [
+                        -84.04564055546274,
+                        9.935337870826146
+                    ],
+                    [
+                        -84.04564108118159,
+                        9.935010933303701
+                    ],
+                    [
+                        -84.04560879988375,
+                        9.934959684128188
+                    ],
+                    [
+                        -84.04561967579563,
+                        9.934648586977218
+                    ],
+                    [
+                        -84.04629473407901,
+                        9.93480225304748
+                    ],
+                    [
+                        -84.0470992295944,
+                        9.934956107215086
+                    ],
+                    [
+                        -84.04773828177501,
+                        9.935144666399196
+                    ],
+                    [
+                        -84.04812896146304,
+                        9.935275846092424
+                    ],
+                    [
+                        -84.04838471764192,
+                        9.935315833498635
+                    ],
+                    [
+                        -84.0486296483808,
+                        9.935299838255858
+                    ],
+                    [
+                        -84.04864918886175,
+                        9.935455202670596
+                    ],
+                    [
+                        -84.04880551271481,
+                        9.935470398008505
+                    ],
+                    [
+                        -84.04908323683499,
+                        9.935536679722375
+                    ],
+                    [
+                        -84.04931624874176,
+                        9.935597760447905
+                    ],
+                    [
+                        -84.04959180833029,
+                        9.935702436952397
+                    ],
+                    [
+                        -84.04967877684776,
+                        9.93571038517426
+                    ],
+                    [
+                        -84.04996965580762,
+                        9.935710384842253
+                    ],
+                    [
+                        -84.05009541582274,
+                        9.935703217141935
+                    ],
+                    [
+                        -84.05034197605185,
+                        9.935667008576047
+                    ],
+                    [
+                        -84.05064702961212,
+                        9.935606746469446
+                    ],
+                    [
+                        -84.0510737676674,
+                        9.935533432162174
+                    ],
+                    [
+                        -84.05130751403954,
+                        9.935492631008493
+                    ],
+                    [
+                        -84.05154595427821,
+                        9.935462728034636
+                    ],
+                    [
+                        -84.05165259310198,
+                        9.935449555489662
+                    ],
+                    [
+                        -84.05176057302998,
+                        9.935447941622215
+                    ],
+                    [
+                        -84.05198305958552,
+                        9.93547169143514
+                    ],
+                    [
+                        -84.05210818895267,
+                        9.935488928329534
+                    ],
+                    [
+                        -84.05218270177936,
+                        9.935501757962939
+                    ]
+                ]
             }
-        }).addTo(mapStops);
+        };
+
+    </script>
+
+    <script>
 
         var busIcon = L.icon({
             iconUrl: 'img/b_azul_fondo_blanco.png',
@@ -3636,44 +4177,176 @@
             popupAnchor: [0, -10]
         });
 
-        // Custom HTML for the popup (card layout)
-        var popupEducacion = `
-            <div class="popup-card">
-                <div class="popup-card-header">
-                    Educación
-                </div>
-                <div class="popup-card-body">
-                    <p>Frente al jardín de la Facultad de Educación (FE)</p>
-                </div>
-            </div>
-        `;
+        let mapL1, mapL2, mapL1Back, mapStops0, mapStops1
 
-        // paradas sentido finca 1 a finca 3
-        var markerEducacion = L.marker([9.935610136323218, -84.04899295728595], {icon: busIcon}).addTo(mapStops).bindPopup(popupEducacion);
-        // var markerEducacion = L.marker([9.935610136323218, -84.04899295728595], {icon: busIcon}).addTo(mapStops).bindPopup("Educación");
-        var markerArtesPlasticas = L.marker([9.935501598287884, -84.05217559901489], {icon: busIcon}).addTo(mapStops).bindPopup("Artes Plásticas");
-        var markerCienciasSalud = L.marker([9.93860832346218, -84.0517499001992], {icon: busIcon}).addTo(mapStops).bindPopup("Ciencias de la Salud");
-        var markerMicrobiologia = L.marker([9.93832361909286, -84.04876049840074], {icon: busIcon}).addTo(mapStops).bindPopup("Microbiología");
-        var markerLANAMME = L.marker([9.935903915437937, -84.04537504744147], {icon: busIcon}).addTo(mapStops).bindPopup("LANAMME");
-        var markerIngenieria = L.marker([9.937467311441507, -84.04467644300775], {icon: busIcon}).addTo(mapStops).bindPopup("Ingeniería");
-        var markerCienciasSociales = L.marker([9.938029607676915, -84.04237892478906], {icon: busIcon}).addTo(mapStops).bindPopup("Ciencias Sociales");
-        var markerINIE = L.marker([9.939451647823137, -84.04307776266035], {icon: busIcon}).addTo(mapStops).bindPopup("INIE");
-        var markerCICICA = L.marker([9.940155168862551, -84.04450675690296], {icon: busIcon}).addTo(mapStops).bindPopup("CICICA");
-        var markerOBS = L.marker([9.943761220391434, -84.04468346245408], {icon: busIcon}).addTo(mapStops).bindPopup("OBS");
-        var markerOdontologia = L.marker([9.946441050827925, -84.0451915613564], {icon: busIcon}).addTo(mapStops).bindPopup("Odontología");
+        function initializeMapL1() {
+            console.log("Initializing Map L1");
+            mapL1 = L.map('L1-educacion').setView([9.94106128502, -84.0468330945], 15);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(mapL1);
+            L.geoJSON(geojsonL1, { style: { color: "#00C0F3" } }).addTo(mapL1);
+        }
 
-        // paradas sentido finca 3 a finca 1
-        // var markerOdontologia1 = L.marker([9.946529500847424, -84.04535458313804], {icon: busIcon}).addTo(mapStops).bindPopup("Odontología");
-        // var markerEDUFI = L.marker([9.943381444081362, -84.04495180739714], {icon: busIcon}).addTo(mapStops).bindPopup("EDUFI");
-        // var markerNutricion = L.marker([9.939134591559855, -84.04468654565294], {icon: busIcon}).addTo(mapStops).bindPopup("Nutrición");
-        // var markerCIMARAuditorio = L.marker([9.938980381389706, -84.0436758508172], {icon: busIcon}).addTo(mapStops).bindPopup("CIMAR / Auditorio");
-        // var markerCIMPA = L.marker([9.939472792042086, -84.042189216776], {icon: busIcon}).addTo(mapStops).bindPopup("CIMPA");
-        // var markerCienciasSociales1 = L.marker([9.938130529026141, -84.04229551510366], {icon: busIcon}).addTo(mapStops).bindPopup("Ciencias Sociales");
-        // var markerIngenieria1 = L.marker([9.937468669419962, -84.04501822768842], {icon: busIcon}).addTo(mapStops).bindPopup("Ingeniería");
-        // var markerLANAMME1 = L.marker([9.93589305371453, -84.04546950911886], {icon: busIcon}).addTo(mapStops).bindPopup("LANAMME");
-        // var markerEducacion1 = L.marker([9.935610136323218, -84.04899295728595], {icon: busIcon}).addTo(mapStops).bindPopup("Educación");
-        // var markerArtesPlasticas1 = L.marker([9.935501598287884, -84.05217559901489], {icon: busIcon}).addTo(mapStops).bindPopup("Artes Plásticas");
+        function initializeMapL1Back() {
+            console.log("Initializing Map L1 Back");
+            mapL1Back = L.map('L1-deportivas').setView([9.94106128502, -84.0468330945], 15);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(mapL1Back);
+            L.geoJSON(geojsonL1Back, { style: { color: "#00C0F3" } }).addTo(mapL1Back);
+        }
+
+        function initializeMapL2() {
+            console.log("Initializing Map L2");
+            mapL2 = L.map('L2-educacion').setView([9.94106128502, -84.0468330945], 15);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(mapL2);
+            L.geoJSON(geojsonL2, { style: { color: "#005DA4" } }).addTo(mapL2);
+        }
+
+        function initializeMapStops0() {
+            console.log("Initializing Map Stops 0");
+            mapStops0 = L.map('mapa-paradas-0').setView([9.94106128502, -84.0468330945], 15);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(mapStops0);
+            L.geoJSON(geojsonStops0, { style: { color: "#00C0F3" } }).addTo(mapStops0);
+
+            // Custom HTML for the popup (card layout)
+            var popupEducacion = `
+                <div class="popup-card">
+                    <div class="popup-card-header">
+                        Educación
+                    </div>
+                    <div class="popup-card-body">
+                        <p>Frente al jardín de la Facultad de Educación (FE)</p>
+                    </div>
+                </div>
+            `;
+
+            // paradas sentido finca 1 a finca 3
+            var markerEducacion = L.marker([9.935610136323218, -84.04899295728595], {icon: busIcon}).addTo(mapStops0).bindPopup(popupEducacion);
+            var markerArtesPlasticas = L.marker([9.935501598287884, -84.05217559901489], {icon: busIcon}).addTo(mapStops0).bindPopup("Artes Plásticas");
+            var markerCienciasSalud = L.marker([9.93860832346218, -84.0517499001992], {icon: busIcon}).addTo(mapStops0).bindPopup("Ciencias de la Salud");
+            var markerMicrobiologia = L.marker([9.93832361909286, -84.04876049840074], {icon: busIcon}).addTo(mapStops0).bindPopup("Microbiología");
+            var markerLANAMME = L.marker([9.935903915437937, -84.04537504744147], {icon: busIcon}).addTo(mapStops0).bindPopup("LANAMME");
+            var markerIngenieria = L.marker([9.937467311441507, -84.04467644300775], {icon: busIcon}).addTo(mapStops0).bindPopup("Ingeniería");
+            var markerCienciasSociales = L.marker([9.938029607676915, -84.04237892478906], {icon: busIcon}).addTo(mapStops0).bindPopup("Ciencias Sociales");
+            var markerINIE = L.marker([9.939451647823137, -84.04307776266035], {icon: busIcon}).addTo(mapStops0).bindPopup("INIE");
+            var markerCICICA = L.marker([9.940155168862551, -84.04450675690296], {icon: busIcon}).addTo(mapStops0).bindPopup("CICICA");
+            var markerOBS = L.marker([9.943761220391434, -84.04468346245408], {icon: busIcon}).addTo(mapStops0).bindPopup("OBS");
+            var markerOdontologia = L.marker([9.946441050827925, -84.0451915613564], {icon: busIcon}).addTo(mapStops0).bindPopup("Odontología");
+        }
+
+        function initializeMapStops1() {
+            console.log("Initializing Map Stops 1");
+            mapStops1 = L.map('mapa-paradas-1').setView([9.94106128502, -84.0468330945], 15);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(mapStops1);
+            L.geoJSON(geojsonStops1, { style: { color: "#00C0F3" } }).addTo(mapStops1);
+
+            // paradas sentido finca 3 a finca 1
+            var markerOdontologia1 = L.marker([9.946529500847424, -84.04535458313804], {icon: busIcon}).addTo(mapStops1).bindPopup("Odontología");
+            var markerEDUFI = L.marker([9.943381444081362, -84.04495180739714], {icon: busIcon}).addTo(mapStops1).bindPopup("EDUFI");
+            var markerNutricion = L.marker([9.939134591559855, -84.04468654565294], {icon: busIcon}).addTo(mapStops1).bindPopup("Nutrición");
+            var markerCIMARAuditorio = L.marker([9.938980381389706, -84.0436758508172], {icon: busIcon}).addTo(mapStops1).bindPopup("CIMAR / Auditorio");
+            var markerCIMPA = L.marker([9.939472792042086, -84.042189216776], {icon: busIcon}).addTo(mapStops1).bindPopup("CIMPA");
+            var markerCienciasSociales1 = L.marker([9.938130529026141, -84.04229551510366], {icon: busIcon}).addTo(mapStops1).bindPopup("Ciencias Sociales");
+            var markerIngenieria1 = L.marker([9.937468669419962, -84.04501822768842], {icon: busIcon}).addTo(mapStops1).bindPopup("Ingeniería");
+            var markerLANAMME1 = L.marker([9.93589305371453, -84.04546950911886], {icon: busIcon}).addTo(mapStops1).bindPopup("LANAMME");
+            var markerEducacion1 = L.marker([9.935610136323218, -84.04899295728595], {icon: busIcon}).addTo(mapStops1).bindPopup("Educación");
+            var markerArtesPlasticas1 = L.marker([9.935501598287884, -84.05217559901489], {icon: busIcon}).addTo(mapStops1).bindPopup("Artes Plásticas");
+        }
+
+
+      $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+          const target = $(e.target).attr("aria-controls");
+          console.log("Switched tab to:", target);
+
+          if (target === 'l1-deportivas-tab-pane') {
+              if (!mapL1) initializeMapL1();
+              setTimeout(() => mapL1.invalidateSize(), 100);
+          } else if (target === 'l2-deportivas-tab-pane') {
+              if (!mapL2) initializeMapL2();
+              setTimeout(() => mapL2.invalidateSize(), 100);
+          } else if (target === 'l1-educacion-tab-pane') {
+              if (!mapL1Back) initializeMapL1Back();
+              setTimeout(() => mapL1Back.invalidateSize(), 100);
+          } 
+          
+          if (target === 'paradas-0-tab-pane') {
+              if (!mapStops0) initializeMapStops0();
+              setTimeout(() => mapStops0.invalidateSize(), 100);
+          } else if (target === 'paradas-1-tab-pane') {
+              if (!mapStops1) initializeMapStops1();
+              setTimeout(() => mapStops1.invalidateSize(), 100);
+          } 
+      });
+
+      document.addEventListener('DOMContentLoaded', function () {
+          if (!mapL1) {
+              initializeMapL1();
+              setTimeout(() => mapL1.invalidateSize(), 100);
+          } 
+          if (!mapStops0) {
+                initializeMapStops0();
+                setTimeout(() => mapStops0.invalidateSize(), 100);
+          }
+      });
     </script>
+
+    <!-- <script>
+        let mapStops0, mapStops1;
+
+        function initializeMapStops0() {
+            console.log("Initializing Map Stops 0");
+            mapStops0 = L.map('mapa-paradas-0').setView([9.94106128502, -84.0468330945], 15);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(mapStops0);
+            L.geoJSON(geojsonStops0, { style: { color: "#00C0F3" } }).addTo(mapStops0);
+        }
+
+        function initializeMapStops1() {
+            console.log("Initializing Map Stops 1");
+            mapStops1 = L.map('mapa-paradas-1').setView([9.94106128502, -84.0468330945], 15);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(mapStops1);
+            L.geoJSON(geojsonStops1, { style: { color: "#00C0F3" } }).addTo(mapStops1);
+        }
+
+        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+            const target = $(e.target).attr("aria-controls");
+            console.log("Switched tab to:", target);
+
+            if (target === 'paradas-0-tab-pane') {
+                if (!mapStops0) initializeMapStops0();
+                setTimeout(() => mapStops0.invalidateSize(), 100);
+            } else if (target === 'paradas-1-tab-pane') {
+                if (!mapStops1) initializeMapStops1();
+                setTimeout(() => mapStops1.invalidateSize(), 100);
+            } 
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!mapStops0) {
+                initializeMapStops0();
+                setTimeout(() => mapStops0.invalidateSize(), 100);
+            }
+        });
+    </script> -->
+    
 </body>
 
 </html>
