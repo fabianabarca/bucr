@@ -23,3 +23,35 @@
     background-color: #005DA4;
     color: white;
 }
+
+/* Custom card styles for the Leaflet popup */
+.popup-card {
+    width: 250px;
+    font-family: Arial, sans-serif;
+    border-radius: 10px;
+    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+    background-color: #fff;
+    padding: 10px;
+}
+
+.popup-card-header {
+    background-color: #007bff; /* Blue background for the title */
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.popup-card-body {
+    padding: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Optional: Adjust for smaller screens */
+@media (max-width: 600px) {
+    .popup-card {
+        width: 200px;
+    }
+}

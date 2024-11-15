@@ -3609,30 +3609,50 @@
             }
         }).addTo(mapStops);
 
+        var busIcon = L.icon({
+            iconUrl: 'img/b_azul_fondo_blanco.png',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10],
+            popupAnchor: [0, -10]
+        });
+
+        // Custom HTML for the popup (card layout)
+        var popupEducacion = `
+            <div class="popup-card">
+                <div class="popup-card-header">
+                    Educación
+                </div>
+                <div class="popup-card-body">
+                    <p>Frente al jardín de la Facultad de Educación (FE)</p>
+                </div>
+            </div>
+        `;
+
         // paradas sentido finca 1 a finca 3
-        var markerEducacion = L.circleMarker([9.935610136323218, -84.04899295728595], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Educacion");
-        var markerArtesPlasticas = L.circleMarker([9.935501598287884, -84.05217559901489], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Artes Plásticas");
-        var markerCienciasSalud = L.circleMarker([9.93860832346218, -84.0517499001992], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Ciencias de la Salud");
-        var markerMicrobiologia = L.circleMarker([9.93832361909286, -84.04876049840074], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Microbiología");
-        var markerLANAMME = L.circleMarker([9.935903915437937, -84.04537504744147], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("LANAMME");
-        var markerIngenieria = L.circleMarker([9.937467311441507, -84.04467644300775], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Ingeniería");
-        var markerCienciasSociales = L.circleMarker([9.938029607676915, -84.04237892478906], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Ciencias Sociales");
-        var markerINIE = L.circleMarker([9.939451647823137, -84.04307776266035], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("INIE");
-        var markerCICICA = L.circleMarker([9.940155168862551, -84.04450675690296], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("CICICA");
-        var markerOBS = L.circleMarker([9.943761220391434, -84.04468346245408], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("OBS");
-        var markerOdontologia = L.circleMarker([9.946441050827925, -84.0451915613564], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Odontología");
+        var markerEducacion = L.marker([9.935610136323218, -84.04899295728595], {icon: busIcon}).addTo(mapStops).bindPopup(popupEducacion);
+        // var markerEducacion = L.marker([9.935610136323218, -84.04899295728595], {icon: busIcon}).addTo(mapStops).bindPopup("Educación");
+        var markerArtesPlasticas = L.marker([9.935501598287884, -84.05217559901489], {icon: busIcon}).addTo(mapStops).bindPopup("Artes Plásticas");
+        var markerCienciasSalud = L.marker([9.93860832346218, -84.0517499001992], {icon: busIcon}).addTo(mapStops).bindPopup("Ciencias de la Salud");
+        var markerMicrobiologia = L.marker([9.93832361909286, -84.04876049840074], {icon: busIcon}).addTo(mapStops).bindPopup("Microbiología");
+        var markerLANAMME = L.marker([9.935903915437937, -84.04537504744147], {icon: busIcon}).addTo(mapStops).bindPopup("LANAMME");
+        var markerIngenieria = L.marker([9.937467311441507, -84.04467644300775], {icon: busIcon}).addTo(mapStops).bindPopup("Ingeniería");
+        var markerCienciasSociales = L.marker([9.938029607676915, -84.04237892478906], {icon: busIcon}).addTo(mapStops).bindPopup("Ciencias Sociales");
+        var markerINIE = L.marker([9.939451647823137, -84.04307776266035], {icon: busIcon}).addTo(mapStops).bindPopup("INIE");
+        var markerCICICA = L.marker([9.940155168862551, -84.04450675690296], {icon: busIcon}).addTo(mapStops).bindPopup("CICICA");
+        var markerOBS = L.marker([9.943761220391434, -84.04468346245408], {icon: busIcon}).addTo(mapStops).bindPopup("OBS");
+        var markerOdontologia = L.marker([9.946441050827925, -84.0451915613564], {icon: busIcon}).addTo(mapStops).bindPopup("Odontología");
 
         // paradas sentido finca 3 a finca 1
-        // var markerOdontologia1 = L.circleMarker([9.946529500847424, -84.04535458313804], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Odontología");
-        // var markerEDUFI = L.circleMarker([9.943381444081362, -84.04495180739714], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("EDUFI");
-        // var markerNutricion = L.circleMarker([9.939134591559855, -84.04468654565294], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Nutrición");
-        // var markerCIMARAuditorio = L.circleMarker([9.938980381389706, -84.0436758508172], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("CIMAR / Auditorio");
-        // var markerCIMPA = L.circleMarker([9.939472792042086, -84.042189216776], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("CIMPA");
-        // var markerCienciasSociales1 = L.circleMarker([9.938130529026141, -84.04229551510366], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Ciencias Sociales");
-        // var markerIngenieria1 = L.circleMarker([9.937468669419962, -84.04501822768842], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Ingeniería");
-        // var markerLANAMME1 = L.circleMarker([9.93589305371453, -84.04546950911886], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("LANAMME");
-        // var markerEducacion1 = L.circleMarker([9.935610136323218, -84.04899295728595], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Educación");
-        // var markerArtesPlasticas1 = L.circleMarker([9.935501598287884, -84.05217559901489], {radius: 4, color: 'black', weight: 1, fillColor: 'white', fillOpacity: 1}).addTo(mapStops).bindPopup("Artes Plásticas");
+        // var markerOdontologia1 = L.marker([9.946529500847424, -84.04535458313804], {icon: busIcon}).addTo(mapStops).bindPopup("Odontología");
+        // var markerEDUFI = L.marker([9.943381444081362, -84.04495180739714], {icon: busIcon}).addTo(mapStops).bindPopup("EDUFI");
+        // var markerNutricion = L.marker([9.939134591559855, -84.04468654565294], {icon: busIcon}).addTo(mapStops).bindPopup("Nutrición");
+        // var markerCIMARAuditorio = L.marker([9.938980381389706, -84.0436758508172], {icon: busIcon}).addTo(mapStops).bindPopup("CIMAR / Auditorio");
+        // var markerCIMPA = L.marker([9.939472792042086, -84.042189216776], {icon: busIcon}).addTo(mapStops).bindPopup("CIMPA");
+        // var markerCienciasSociales1 = L.marker([9.938130529026141, -84.04229551510366], {icon: busIcon}).addTo(mapStops).bindPopup("Ciencias Sociales");
+        // var markerIngenieria1 = L.marker([9.937468669419962, -84.04501822768842], {icon: busIcon}).addTo(mapStops).bindPopup("Ingeniería");
+        // var markerLANAMME1 = L.marker([9.93589305371453, -84.04546950911886], {icon: busIcon}).addTo(mapStops).bindPopup("LANAMME");
+        // var markerEducacion1 = L.marker([9.935610136323218, -84.04899295728595], {icon: busIcon}).addTo(mapStops).bindPopup("Educación");
+        // var markerArtesPlasticas1 = L.marker([9.935501598287884, -84.05217559901489], {icon: busIcon}).addTo(mapStops).bindPopup("Artes Plásticas");
     </script>
 </body>
 
