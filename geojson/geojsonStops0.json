@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Point",
+              "coordinates": [
+                  -84.04237892478906,
+                  9.938029607676915
+              ]
+          },
+          "properties": {
+              "route_id": "bUCR_L1",
+              "shape_id": "hacia_educacion",
+              "stop_id": "bUCR_0_07",
+              "stop_name": "Facultad de Ciencias Sociales",
+              "stop_desc": "Entre la Facultad de Ciencias Sociales (FCS) y el edificio de parqueos",
+              "stop_sequence": 4,
+              "timepoint": true,
+              "wheelchair_boarding": 1
+          }
+      }
+  ]
+}
